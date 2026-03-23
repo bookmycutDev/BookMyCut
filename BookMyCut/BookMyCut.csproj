@@ -1,11 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Views\" />
+		<Folder Include="ViewModels\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.12">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>
