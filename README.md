@@ -29,14 +29,6 @@ Le projet suit une architecture modulaire avec gestion des utilisateurs, des ser
 
 ---
 
-## 📸 Aperçu de l'application
-
-> Ajoute l’image dans ton projet GitHub, idéalement à la racine du repo ou dans un dossier `images`.
-
-![Page d'accueil de BookMyCut](Capture%20d%E2%80%99%C3%A9cran%202026-03-23%20234222.png)
-
----
-
 ## 📂 Gestion de projet
 
 ### Jira
