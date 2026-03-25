@@ -29,6 +29,8 @@ Le projet suit une architecture modulaire avec gestion des utilisateurs, des ser
 
 ---
 
+## 📸 Aperçu de l'application
+
 <img width="848" height="493" alt="Capture d’écran 2026-03-23 234222" src="https://github.com/user-attachments/assets/62729fc9-6ceb-43a0-8bdd-da6fe46086ea" />
 
 ---
