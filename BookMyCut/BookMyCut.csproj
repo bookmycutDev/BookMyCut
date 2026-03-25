@@ -9,12 +9,25 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="imgs\BookMyCutBG.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Views\" />
+		<Folder Include="ViewModels\" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.12" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.12">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="imgs\BookMyCutBG.png" />
 	</ItemGroup>
 
 </Project>
