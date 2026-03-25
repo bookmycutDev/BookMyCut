@@ -5,8 +5,12 @@
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<UseWPF>true</UseWPF>
+		<UseWPF>true</UseWPF>		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="imgs\BookMyCutBG.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Views\" />
@@ -20,6 +24,10 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="imgs\BookMyCutBG.png" />
 	</ItemGroup>
 
 </Project>
