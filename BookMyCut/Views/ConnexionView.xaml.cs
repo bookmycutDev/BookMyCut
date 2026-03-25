@@ -22,5 +22,10 @@ namespace BookMyCut.Views
                 vm.MotDePasse = ((PasswordBox)sender).Password;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

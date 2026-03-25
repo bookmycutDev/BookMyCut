@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace BookMyCut
 {
     /// <summary>
-    /// Logique d'interaction pour Inscription.xaml
+    /// Logique d'interaction pour Inscription.xaml grggwf
     /// </summary>
     public partial class Inscription : Window
     {
