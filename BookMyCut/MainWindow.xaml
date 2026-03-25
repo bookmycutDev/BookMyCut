@@ -5,14 +5,312 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookMyCut"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="BookMyCut"
+        Height="720"
+        Width="1200"
+        MinHeight="650"
+        MinWidth="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="Black">
+
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Margin" Value="6,0,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#22FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#E86C1A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E86C1A"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="180"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
 
-        <Button Content="Inscription"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="10"
-                Click="BtnInscriptionClick"/>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="imgs/BookMyCutBG.png"
+                    Stretch="UniformToFill"/>
+        </Grid.Background>
+
+
+        <Rectangle Fill="#99000000"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="85"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+
+            
+            <Border Grid.Row="0" Background="#25000000">
+                <Grid Margin="30,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="✂"
+                                   FontSize="26"
+                                   Foreground="#E0B03D"
+                                   Margin="0,0,10,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Book"
+                                   FontFamily="Book Antiqua"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="MyCut"
+                                   FontFamily="Book Antiqua"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="#E86C1A"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    
+                    <StackPanel Grid.Column="2"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Button Content="Accueil"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnAccueil_Click"/>
+
+                        <Button Content="Services"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnServices_Click"/>
+
+                        <Button Content="Nos Coiffeurs"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnCoiffeurs_Click"/>
+
+                        <Button Content="Contact"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnContact_Click"/>
+
+                        <Button Content="Se Connecter"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnConnexion_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            
+            <Grid Grid.Row="1" Margin="60,20,60,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <StackPanel Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Margin="10,0,30,0">
+
+                    <TextBlock Text="Prenez Rendez-Vous Pour&#10;Votre Coupe de Cheveux!"
+                               FontSize="44"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,20"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,25">
+                        <TextBlock Text="Réserver votre coupe en un clic"
+                                   FontSize="20"
+                                   Foreground="#F1F1F1"
+                                   VerticalAlignment="Center"/>
+                        <Rectangle Width="45"
+                                   Height="2"
+                                   Fill="#E86C1A"
+                                   Margin="18,0,0,0"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Créer un compte"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="BtnInscription_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
+               
+                <Border Grid.Column="1"
+                        Width="430"
+                        Padding="28"
+                        CornerRadius="18"
+                        Background="#F2EDE6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                    <StackPanel>
+                        <TextBlock Text="Réserver votre coupe"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="#222222"
+                                   Margin="0,0,0,22"/>
+
+                        <ComboBox x:Name="cbService"
+                                  Height="48"
+                                  Margin="0,0,0,14"
+                                  FontSize="16"
+                                  Background="#F8F8F8"
+                                  BorderBrush="#DDDDDD"
+                                  Padding="10" SelectionChanged="cbService_SelectionChanged">
+                            <ComboBoxItem Content="Choisissez une prestation"/>
+                            <ComboBoxItem Content="Coupe homme"/>
+                            <ComboBoxItem Content="Coupe femme"/>
+                            <ComboBoxItem Content="Barbe"/>
+                            <ComboBoxItem Content="Coupe + barbe"/>
+                        </ComboBox>
+
+                        <ComboBox x:Name="cbCoiffeur"
+                                  Height="48"
+                                  Margin="0,0,0,14"
+                                  FontSize="16"
+                                  Background="#F8F8F8"
+                                  BorderBrush="#DDDDDD"
+                                  Padding="10">
+                            <ComboBoxItem Content="Sélectionnez un coiffeur"/>
+                            <ComboBoxItem Content="Alex"/>
+                            <ComboBoxItem Content="Sarah"/>
+                            <ComboBoxItem Content="Mike"/>
+                        </ComboBox>
+
+                        <DatePicker x:Name="dpDate"
+                                    Height="48"
+                                    Margin="0,0,0,20"
+                                    FontSize="16"
+                                    Background="#F8F8F8"
+                                    BorderBrush="#DDDDDD"/>
+
+                        <Button Content="Réserver Maintenant"
+                                Height="52"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                Background="#F47B20"
+                                Foreground="White"
+                                BorderBrush="#F47B20"
+                                Cursor="Hand"
+                                Click="BtnReservationForm_Click"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            
+            <Border Grid.Row="2" Background="#25000000">
+                <Grid Margin="30,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Adresse"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                        <TextBlock Text="123 Rue du Style, Montréal"
+                                   FontSize="13"
+                                   Foreground="#F0F0F0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <TextBlock Text="Téléphone"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                        <TextBlock Text="(514) 555-1234"
+                                   FontSize="13"
+                                   Foreground="#F0F0F0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+                        <TextBlock Text="Heures"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                        <TextBlock Text="Lun - Sam : 9h00 à 18h00"
+                                   FontSize="13"
+                                   Foreground="#F0F0F0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
