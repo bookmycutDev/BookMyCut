@@ -20,5 +20,10 @@ namespace BookMyCut
         {
             InitializeComponent();
         }
+        private void BtnInscriptionClick(object sender, RoutedEventArgs e)
+        {
+            Inscription fenetre = new Inscription();
+            fenetre.Show();
+        }
     }
 }
