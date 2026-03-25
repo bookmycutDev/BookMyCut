@@ -5,13 +5,8 @@
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<UseWPF>true</UseWPF>
+		<UseWPF>true</UseWPF>		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<Folder Include="Views\" />
-		<Folder Include="ViewModels\" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
