@@ -20,7 +20,9 @@ namespace BookMyCut.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-         
+
+            base.OnModelCreating(modelBuilder);
+
             // Empêche la création de deux comptes avec la même adresse email au niveau de la base.
             modelBuilder.Entity<Utilisateur>()
                 .HasIndex(u => u.Email)
