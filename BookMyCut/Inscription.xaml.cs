@@ -1,40 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using BookMyCut.Data;
+using BookMyCut.Models;
 
 namespace BookMyCut
 {
-    /// <summary>
-    /// Logique d'interaction pour Inscription.xaml grggwf
-    /// </summary>
     public partial class Inscription : Window
     {
+        private readonly BookMyCutContext _db = new BookMyCutContext();
+
         public Inscription()
         {
             InitializeComponent();
         }
+
         private void BtnCreerClick(object sender, RoutedEventArgs e)
         {
-            if (txtPrenom.Text == "" || txtNom.Text == "" || txtEmail.Text == "" || txtMdp.Password == "" || txtValidMdp.Password == "" )
+            string prenom = txtPrenom.Text.Trim();
+            string nom = txtNom.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string motDePasse = txtMdp.Password.Trim();
+            string confirmation = txtValidMdp.Password.Trim();
+
+            if (prenom == "" || nom == "" || email == "" || motDePasse == "" || confirmation == "")
             {
                 MessageBox.Show("Remplis tous les champs");
+                return;
             }
-            else
+
+            if (motDePasse != confirmation)
             {
-                MessageBox.Show("Compte créé");
-                Close();
+                MessageBox.Show("Les mots de passe ne correspondent pas");
+                return;
             }
+
+            bool emailExiste = _db.Utilisateurs.Any(u => u.Email.ToLower() == email.ToLower());
+
+            if (emailExiste)
+            {
+                MessageBox.Show("Cet email existe déjà");
+                return;
+            }
+
+            Utilisateur nouvelUtilisateur = new Utilisateur
+            {
+                NomComplet = prenom + " " + nom,
+                Email = email,
+                MotDePasse = motDePasse,
+                Role = RoleUtilisateur.Client
+            };
+
+            _db.Utilisateurs.Add(nouvelUtilisateur);
+            _db.SaveChanges();
+
+            MessageBox.Show("Compte créé");
+            Close();
         }
+
         private void BtnFermerClick(object sender, RoutedEventArgs e)
         {
             Close();

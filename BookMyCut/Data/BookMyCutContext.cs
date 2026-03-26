@@ -3,17 +3,16 @@ using BookMyCut.Models;
 
 namespace BookMyCut.Data
 {
-    /// Classe de contexte pour Entity Framework Core.
+
     public class BookMyCutContext : DbContext
     {
-        //table "Utilisateurs" dans BD
-        //requêtes LINQ 
+     
         public DbSet<Utilisateur> Utilisateurs { get; set; }
 
-        ///connexion a BD
+       
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            // Définit l'utilisation SQLite et nom fichier de BD
+          
             
             options.UseSqlite("Data Source=bookmycut.db");
         }
@@ -21,7 +20,7 @@ namespace BookMyCut.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
          
-            // Empêche la création de deux comptes avec la même adresse email au niveau de la base.
+            
             modelBuilder.Entity<Utilisateur>()
                 .HasIndex(u => u.Email)
                 .IsUnique();

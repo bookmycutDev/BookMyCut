@@ -16,7 +16,7 @@ namespace BookMyCut.Models
         public string Email { get; set; }
 
         [Required]
-        public string MotDePasse { get; set; } // Sera stocké haché
+        public string MotDePasse { get; set; }
 
         public RoleUtilisateur Role { get; set; } = RoleUtilisateur.Client;
     }

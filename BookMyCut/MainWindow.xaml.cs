@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using BookMyCut.Views;
 
 namespace BookMyCut
 {
@@ -36,7 +38,8 @@ namespace BookMyCut
 
         private void BtnConnexion_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("La page de connexion sera ajoutée plus tard.", "Connexion");
+            ConnexionView fenetre = new ConnexionView();
+            fenetre.Show();
         }
 
         private void BtnInscription_Click(object sender, RoutedEventArgs e)
