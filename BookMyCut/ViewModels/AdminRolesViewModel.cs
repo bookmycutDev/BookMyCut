@@ -28,11 +28,16 @@ namespace BookMyCut.ViewModels
         //tous utilisateurs de SQLite
         private void ChargerDonnees()
         {
-            // utilisateurs de bookmycut.db
-            var liste = _db.Utilisateurs.ToList();
-            Utilisateurs = new ObservableCollection<Utilisateur>(liste);
+            try
+            {
+                var liste = _db.Utilisateurs.ToList();
+                Utilisateurs = new ObservableCollection<Utilisateur>(liste);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur de base de données : {ex.Message}", "Erreur");
+            }
         }
-
         [RelayCommand]
         private void ModifierRole(RoleUtilisateur nouveauRole)
         {

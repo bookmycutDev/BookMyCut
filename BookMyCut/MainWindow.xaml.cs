@@ -36,12 +36,13 @@ namespace BookMyCut
 
         private void BtnConnexion_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("La page de connexion sera ajoutée plus tard.", "Connexion");
+            var fenetre = new BookMyCut.Views.ConnexionView();
+            fenetre.Show();
         }
 
         private void BtnInscription_Click(object sender, RoutedEventArgs e)
         {
-            Inscription fenetre = new Inscription();
+            var fenetre = new BookMyCut.Views.InscriptionView();
             fenetre.Show();
         }
 
