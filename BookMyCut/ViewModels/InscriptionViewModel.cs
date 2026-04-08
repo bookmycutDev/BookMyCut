@@ -1,8 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BookMyCut.Data.Data;
+using BookMyCut.Data.Models;
+using BookMyCut.Utils; 
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using BookMyCut.Data;
-using BookMyCut.Models;
 using System.Windows;
+using BookMyCut.Views; 
 
 namespace BookMyCut.ViewModels
 {
@@ -58,7 +60,7 @@ namespace BookMyCut.ViewModels
             {
                 NomComplet = $"{_prenom} {_nom}",
                 Email = _email,
-                MotDePasse = _motDePasse,
+                MotDePasse = Hash.HashPassword(_motDePasse),
                 Role = RoleUtilisateur.Client
             };
 
@@ -68,14 +70,12 @@ namespace BookMyCut.ViewModels
             MessageBox.Show($"Compte créé ! Bienvenue {nouvelUtilisateur.NomComplet}.",
                 "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            foreach (Window w in Application.Current.Windows)
-            {
-                if (w is BookMyCut.Views.InscriptionView)
-                {
-                    w.Close();
-                    break;
-                }
-            }
+            //ouvre la fenêtre de connexion
+            var loginWindow = new ConnexionView();
+            loginWindow.Show();
+
+            //ferme la fenêtre d'inscription
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is InscriptionView)?.Close();
         }
     }
 }
