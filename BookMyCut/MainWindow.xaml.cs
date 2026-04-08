@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using BookMyCut.Views;
 
 namespace BookMyCut
 {
@@ -31,7 +32,8 @@ namespace BookMyCut
 
         private void BtnContact_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("La page contact sera ajoutée plus tard.", "Contact");
+            ContactView f = new ContactView();
+            f.Show();
         }
 
         private void BtnConnexion_Click(object sender, RoutedEventArgs e)
