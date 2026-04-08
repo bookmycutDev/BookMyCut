@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using BookMyCut.Views;
 
 namespace BookMyCut
 {
@@ -19,59 +21,26 @@ namespace BookMyCut
             MessageBox.Show("Vous êtes déjà sur la page d'accueil.", "Accueil");
         }
 
-        private void BtnServices_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("La page des services sera ajoutée plus tard.", "Services");
-        }
-
-        private void BtnCoiffeurs_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("La page des coiffeurs sera ajoutée plus tard.", "Coiffeurs");
-        }
-
-        private void BtnContact_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("La page contact sera ajoutée plus tard.", "Contact");
-        }
-
         private void BtnConnexion_Click(object sender, RoutedEventArgs e)
         {
-            var fenetre = new BookMyCut.Views.ConnexionView();
+            var fenetre = new ConnexionView();
+            fenetre.Owner = this; // Définit la fenêtre actuelle comme parent
             fenetre.Show();
         }
 
         private void BtnInscription_Click(object sender, RoutedEventArgs e)
         {
-            var fenetre = new BookMyCut.Views.InscriptionView();
+            var fenetre = new InscriptionView();
+            fenetre.Owner = this;
             fenetre.Show();
-        }
-
-        private void cbService_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbService.SelectedIndex > 0)
-            {
-                ComboBoxItem selected = (ComboBoxItem)cbService.SelectedItem;
-                Console.WriteLine("Service choisi : " + selected.Content.ToString());
-            }
         }
 
         private void BtnReservationForm_Click(object sender, RoutedEventArgs e)
         {
-            if (cbService.SelectedIndex <= 0)
+            if (cbService.SelectedIndex <= 0 || cbCoiffeur.SelectedIndex <= 0 || dpDate.SelectedDate == null)
             {
-                MessageBox.Show("Veuillez choisir un service.", "Erreur");
-                return;
-            }
-
-            if (cbCoiffeur.SelectedIndex <= 0)
-            {
-                MessageBox.Show("Veuillez choisir un coiffeur.", "Erreur");
-                return;
-            }
-
-            if (dpDate.SelectedDate == null)
-            {
-                MessageBox.Show("Veuillez choisir une date.", "Erreur");
+                MessageBox.Show("Veuillez remplir tous les champs du formulaire.", "Champs manquants",
+                                MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -80,14 +49,16 @@ namespace BookMyCut
             string date = dpDate.SelectedDate.Value.ToShortDateString();
 
             MessageBox.Show(
-                "Rendez-vous confirmé !\n\n" +
-                "Service : " + service + "\n" +
-                "Coiffeur : " + coiffeur + "\n" +
-                "Date : " + date,
-                "Confirmation",
+                $"Rendez-vous confirmé !\n\nService : {service}\nCoiffeur : {coiffeur}\nDate : {date}",
+                "Succès",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
             );
         }
+
+        private void cbService_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+        private void BtnServices_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
+        private void BtnCoiffeurs_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
+        private void BtnContact_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
     }
 }
