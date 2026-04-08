@@ -3,27 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Contact" Height="350" Width="450">
 
-	<Grid Background="White">
-		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+	<Grid>
+
+		<Grid.Background>
+			<ImageBrush ImageSource="/imgs/BookMyCutBG.png"
+						Stretch="UniformToFill"/>
+		</Grid.Background>
+
+		<Rectangle Fill="#99000000"/>
+		
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
 
 			<TextBlock Text="Contact"
-                       FontSize="24"
+                       FontSize="40"
                        FontWeight="Bold"
+					   Foreground="White"
                        HorizontalAlignment="Center"
-                       Margin="10"/>
+                       Margin="30"/>
 
-			<TextBlock Text="Adresse :" FontWeight="Bold" Margin="10,10,10,0"/>
-			<TextBlock Text="123 Rue du Style, Montréal" Margin="10"/>
+			<TextBlock Text="Adresse :" FontWeight="Bold" Foreground="White" Margin="10,10,10,0"/>
+			<TextBlock Text="123 Rue du Style, Montréal" Foreground="White" Margin="10"/>
 
-			<TextBlock Text="Téléphone :" FontWeight="Bold" Margin="10,10,10,0"/>
+			<TextBlock Text="Téléphone :" FontWeight="Bold" Foreground="White" Margin="10,10,10,0"/>
 			<TextBlock Text="(514) 555-1234" Margin="10"/>
 
-			<TextBlock Text="Heures :" FontWeight="Bold" Margin="10,10,10,0"/>
-			<TextBlock Text="Lun - Sam : 9h00 à 18h00" Margin="10"/>
+			<TextBlock Text="Heures :" FontWeight="Bold" Foreground="White" Margin="10,10,10,0"/>
+			<TextBlock Text="Lun - Sam : 9h00 à 18h00" Foreground="White" Margin="10"/>
 
 			<Button Content="Fermer"
-                    Width="100"
-                    Margin="10"
+                    Width="120"
+                    Margin="40"
                     HorizontalAlignment="Center"
                     Click="BtnFermerClick"/>
 
