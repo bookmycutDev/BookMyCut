@@ -21,6 +21,22 @@ namespace BookMyCut
             MessageBox.Show("Vous êtes déjà sur la page d'accueil.", "Accueil");
         }
 
+        private void BtnServices_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("La page des services sera ajoutée plus tard.", "Services");
+        }
+
+        private void BtnCoiffeurs_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("La page des coiffeurs sera ajoutée plus tard.", "Coiffeurs");
+        }
+
+        private void BtnContact_Click(object sender, RoutedEventArgs e)
+        {
+            ContactView f = new ContactView();
+            f.Show();
+        }
+
         private void BtnConnexion_Click(object sender, RoutedEventArgs e)
         {
             var fenetre = new ConnexionView();
