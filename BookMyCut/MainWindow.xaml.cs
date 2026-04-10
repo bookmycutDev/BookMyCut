@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using BookMyCut.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BookMyCut
 {
@@ -10,10 +11,21 @@ namespace BookMyCut
         public MainWindow()
         {
             InitializeComponent();
-
             cbService.SelectedIndex = 0;
             cbCoiffeur.SelectedIndex = 0;
             dpDate.SelectedDate = DateTime.Today;
+        }
+
+        private void BtnConnexion_Click(object sender, RoutedEventArgs e)
+        {
+            var fenetre = App.ServiceProvider.GetRequiredService<ConnexionView>();
+            fenetre.Show();
+        }
+
+        private void BtnInscription_Click(object sender, RoutedEventArgs e)
+        {
+            var fenetre = App.ServiceProvider.GetRequiredService<InscriptionView>();
+            fenetre.Show();
         }
 
         private void BtnAccueil_Click(object sender, RoutedEventArgs e)
@@ -21,26 +33,12 @@ namespace BookMyCut
             MessageBox.Show("Vous êtes déjà sur la page d'accueil.", "Accueil");
         }
 
-        private void BtnConnexion_Click(object sender, RoutedEventArgs e)
-        {
-            var fenetre = new ConnexionView();
-            fenetre.Owner = this; // Définit la fenêtre actuelle comme parent
-            fenetre.Show();
-        }
-
-        private void BtnInscription_Click(object sender, RoutedEventArgs e)
-        {
-            var fenetre = new InscriptionView();
-            fenetre.Owner = this;
-            fenetre.Show();
-        }
-
         private void BtnReservationForm_Click(object sender, RoutedEventArgs e)
         {
             if (cbService.SelectedIndex <= 0 || cbCoiffeur.SelectedIndex <= 0 || dpDate.SelectedDate == null)
             {
-                MessageBox.Show("Veuillez remplir tous les champs du formulaire.", "Champs manquants",
-                                MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Veuillez remplir tous les champs.", "Champs manquants",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -50,10 +48,7 @@ namespace BookMyCut
 
             MessageBox.Show(
                 $"Rendez-vous confirmé !\n\nService : {service}\nCoiffeur : {coiffeur}\nDate : {date}",
-                "Succès",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+                "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void cbService_SelectionChanged(object sender, SelectionChangedEventArgs e) { }

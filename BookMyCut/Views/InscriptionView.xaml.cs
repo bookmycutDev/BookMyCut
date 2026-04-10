@@ -6,9 +6,10 @@ namespace BookMyCut.Views
 {
     public partial class InscriptionView : Window
     {
-        public InscriptionView()
+        public InscriptionView(InscriptionViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm;
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

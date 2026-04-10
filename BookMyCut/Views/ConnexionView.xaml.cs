@@ -6,9 +6,11 @@ namespace BookMyCut.Views
 {
     public partial class ConnexionView : Window
     {
-        public ConnexionView()
+        // ViewModel injecté 
+        public ConnexionView(ConnexionViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm; // Branche  ViewModel a vue
         }
 
         //méthode chaque fois tape caractère

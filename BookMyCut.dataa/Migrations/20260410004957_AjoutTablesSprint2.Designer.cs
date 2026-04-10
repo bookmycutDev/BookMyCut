@@ -3,6 +3,7 @@ using System;
 using BookMyCut.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyCut.dataa.Migrations
 {
     [DbContext(typeof(BookMyCutContext))]
-    partial class BookMyCutContextModelSnapshot : ModelSnapshot
+    [Migration("20260410004957_AjoutTablesSprint2")]
+    partial class AjoutTablesSprint2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.12");
@@ -126,16 +129,6 @@ namespace BookMyCut.dataa.Migrations
                         .IsUnique();
 
                     b.ToTable("Utilisateurs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "admin@test.com",
-                            MotDePasse = "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=",
-                            NomComplet = "Administrateur",
-                            Role = 2
-                        });
                 });
 
             modelBuilder.Entity("BookMyCut.Data.Models.Disponibilite", b =>

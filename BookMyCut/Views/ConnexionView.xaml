@@ -4,9 +4,6 @@
         xmlns:vm="clr-namespace:BookMyCut.ViewModels"
         Title="BookMyCut - Connexion" Height="350" Width="400" WindowStartupLocation="CenterScreen">
 
-    <Window.DataContext>
-        <vm:ConnexionViewModel />
-    </Window.DataContext>
 
     <Grid Margin="30">
         <StackPanel VerticalAlignment="Center">
@@ -22,6 +19,14 @@
                     Command="{Binding SeConnecterCommand}" 
                     Margin="0,30,0,0" Padding="12" 
                     Background="#3498DB" Foreground="White" FontWeight="Bold"/>
+
+            <Button Content="Pas de compte ? Créer un compte" 
+                Command="{Binding AllerAInscriptionCommand}"
+                Background="Transparent" 
+                BorderBrush="Transparent" 
+                Foreground="Blue" 
+                Cursor="Hand"
+                Margin="0,10,0,0"/>
         </StackPanel>
     </Grid>
 </Window>

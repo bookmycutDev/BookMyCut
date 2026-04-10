@@ -5,9 +5,6 @@
         xmlns:models="clr-namespace:BookMyCut.Data.Models;assembly=BookMyCut.dataa"
         Title="Gestion des Rôles - Admin" Height="450" Width="650" WindowStartupLocation="CenterScreen">
 
-    <Window.DataContext>
-        <vm:AdminRolesViewModel />
-    </Window.DataContext>
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -46,6 +43,15 @@
                     Command="{Binding ModifierRoleCommand}" 
                     CommandParameter="{x:Static models:RoleUtilisateur.Client}" 
                     Padding="10,5" Margin="5" Background="#3498DB" Foreground="White"/>
+            
+            <Button Content="Gérer les Services" 
+                Command="{Binding OuvrirGestionServicesCommand}" 
+                Margin="5" 
+                Padding="10,5"
+                Background="SkyBlue"
+                FontWeight="Bold"/>
+        
         </StackPanel>
+        
     </Grid>
 </Window>
