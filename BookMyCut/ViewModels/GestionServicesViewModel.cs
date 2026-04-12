@@ -19,7 +19,7 @@ namespace BookMyCut.ViewModels
         [ObservableProperty] private string _nom = string.Empty;
         [ObservableProperty] private string _description = string.Empty;
         [ObservableProperty] private string _prix = string.Empty;
-        [ObservableProperty] private string _duree = string.Empty;
+        [ObservableProperty] private string _Duree = string.Empty;
 
         // Service sélectionné dans la liste
         [ObservableProperty]

@@ -14,6 +14,7 @@ namespace BookMyCut.Data.Data
         public BookMyCutContext(DbContextOptions<BookMyCutContext> options)
             : base(options)
         {
+            this.Database.EnsureCreated();
         }
 
         public BookMyCutContext() { }
@@ -28,12 +29,12 @@ namespace BookMyCut.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Garde ton index unique
+            // Garde index unique
             modelBuilder.Entity<Utilisateur>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
-            // --- AJOUT DU SEEDING ICI ---
+            //SEEDING 
             modelBuilder.Entity<Utilisateur>().HasData(new Utilisateur
             {
                 Id = 1,

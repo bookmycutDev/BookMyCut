@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using BookMyCut.Utils;
+using BookMyCut.ViewModels;
 using BookMyCut.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 
 namespace BookMyCut
 {
@@ -11,49 +11,68 @@ namespace BookMyCut
         public MainWindow()
         {
             InitializeComponent();
-            cbService.SelectedIndex = 0;
-            cbCoiffeur.SelectedIndex = 0;
-            dpDate.SelectedDate = DateTime.Today;
+            RafraichirInterface();
+            // Charger la vue d'accueil par défaut
+            ChargerAccueil();
         }
 
-        private void BtnConnexion_Click(object sender, RoutedEventArgs e)
+        private void RafraichirInterface()
         {
-            var fenetre = App.ServiceProvider.GetRequiredService<ConnexionView>();
-            fenetre.Show();
-        }
-
-        private void BtnInscription_Click(object sender, RoutedEventArgs e)
-        {
-            var fenetre = App.ServiceProvider.GetRequiredService<InscriptionView>();
-            fenetre.Show();
-        }
-
-        private void BtnAccueil_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Vous êtes déjà sur la page d'accueil.", "Accueil");
-        }
-
-        private void BtnReservationForm_Click(object sender, RoutedEventArgs e)
-        {
-            if (cbService.SelectedIndex <= 0 || cbCoiffeur.SelectedIndex <= 0 || dpDate.SelectedDate == null)
+            if (SessionUtilisateur.Instance.EstConnecte)
             {
-                MessageBox.Show("Veuillez remplir tous les champs.", "Champs manquants",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                txtUser.Text = $"Bonjour, {SessionUtilisateur.Instance.UtilisateurConnecte.NomComplet} !";
+            }
+        }
+
+        private void ChargerAccueil()
+        {
+            // vue au ServiceProvider pour injecté ViewModel automatiquement
+            var homeView = App.ServiceProvider.GetRequiredService<HomeView>();
+
+            //force rafraîchissement 
+            if (homeView.DataContext is HomeViewModel vm)
+            {
+                // appelle méthode chargement 
+                _ = vm.ChargerRendezVousAsync();
             }
 
-            string service = ((ComboBoxItem)cbService.SelectedItem).Content.ToString();
-            string coiffeur = ((ComboBoxItem)cbCoiffeur.SelectedItem).Content.ToString();
-            string date = dpDate.SelectedDate.Value.ToShortDateString();
-
-            MessageBox.Show(
-                $"Rendez-vous confirmé !\n\nService : {service}\nCoiffeur : {coiffeur}\nDate : {date}",
-                "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+            MainContent.Content = homeView;
         }
 
-        private void cbService_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-        private void BtnServices_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
+        private void BtnDeconnexion_Click(object sender, RoutedEventArgs e)
+        {
+            SessionUtilisateur.Instance.Deconnecter();
+            var login = App.ServiceProvider.GetRequiredService<ConnexionView>();
+            login.Show();
+            this.Close();
+        }
+
+        private void BtnAccueil_Click(object sender, RoutedEventArgs e) => ChargerAccueil();
+
+        public void NaviguerVersBooking()
+        {
+            var bookingView = App.ServiceProvider.GetRequiredService<BookingView>();
+
+            if (bookingView.DataContext is BookingViewModel vm)
+            {
+                // abonne action dans le ViewModel
+                vm.SurReservationReussie = () =>
+                {
+                    // Quand action invoquée, on revient à l'accueil
+                    ChargerAccueil();
+                };
+            }
+
+            MainContent.Content = bookingView;
+        }
+
+        private void BtnServices_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Découvrez nos services bientôt ici ! Utilisez 'PRENDRE RENDEZ-VOUS' sur l'accueil.");
+
         private void BtnCoiffeurs_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
         private void BtnContact_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
+
+
+
+
     }
 }

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="BookMyCut.Views.BookingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+    <Border Background="#CC000000" CornerRadius="20" Padding="30" Margin="50">
+        <StackPanel MaxWidth="500">
+            <TextBlock Text="PRENDRE UN RENDEZ-VOUS" FontSize="24" FontWeight="Bold" Foreground="#E0B03D" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+            <TextBlock Text="Choisir un Service" Foreground="White" Margin="0,10,0,5"/>
+            <ComboBox ItemsSource="{Binding Services}" SelectedItem="{Binding ServiceSelectionne}" DisplayMemberPath="Nom" Padding="10"/>
+
+            <TextBlock Text="Choisir un Coiffeur" Foreground="White" Margin="0,20,0,5"/>
+            <ComboBox ItemsSource="{Binding Coiffeurs}" SelectedItem="{Binding CoiffeurSelectionne}" DisplayMemberPath="NomComplet" Padding="10"/>
+
+            <TextBlock Text="Choisir une Date et Heure" Foreground="White" Margin="0,20,0,5"/>
+            <DatePicker SelectedDate="{Binding DateSelectionnee}" Margin="0,0,0,10"/>
+
+            <Button Content="CONFIRMER LA RÉSERVATION" 
+                    Command="{Binding ConfirmerRendezVousCommand}"
+                    Margin="0,40,0,0" Height="50"
+                    Background="#E86C1A" Foreground="White" FontWeight="Bold">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Border>
+</UserControl>

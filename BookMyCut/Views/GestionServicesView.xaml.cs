@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookMyCut.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BookMyCut.Views
 {
-    /// <summary>
-    /// Logique d'interaction pour GestionServicesView.xaml
-    /// </summary>
-    public partial class GestionServicesView : Window
+    public partial class GestionServicesView : Window 
     {
-        public GestionServicesView()
+        public GestionServicesView(GestionServicesViewModel vm)
         {
             InitializeComponent();
+            this.DataContext = vm; //active les boutons 
         }
     }
 }

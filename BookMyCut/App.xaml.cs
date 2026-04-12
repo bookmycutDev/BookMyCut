@@ -9,47 +9,59 @@ namespace BookMyCut
 {
     public partial class App : Application
     {
-        // Le ServiceProvider permet d'accéder aux services partout dans l'app
+        // Le ServiceProvider = accéder aux services partout dans app
         public static IServiceProvider ServiceProvider { get; private set; }
 
         public App()
         {
             var services = new ServiceCollection();
-            ConfigureServices(services);
-            ServiceProvider = services.BuildServiceProvider();
+            ConfigureServices(services); //configure tout en premier
+            ServiceProvider = services.BuildServiceProvider(); // construit catalogue(fin)
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
-            // 1. Enregistre la Base de Données
+            // enregistre la Base de Données
             services.AddDbContext<BookMyCutContext>();
 
-            // 2. Enregistre le Repository (Scoped = une instance par session)
+            //  enregistre les Repositories
             services.AddScoped<IUtilisateurRepository, UtilisateurRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<IRendezVousRepository, RendezVousRepository>();
 
-            // 3. Enregistre les ViewModels
+            //enregistre les ViewModels
             services.AddTransient<ConnexionViewModel>();
             services.AddTransient<InscriptionViewModel>();
             services.AddTransient<AdminRolesViewModel>();
+            services.AddTransient<GestionServicesViewModel>();
+            services.AddTransient<HomeViewModel>();
+            services.AddTransient<BookingViewModel>();
 
-            // 4. Enregistre les Vues (Fenêtres)
+            //enregistre les Vues
             services.AddTransient<ConnexionView>();
             services.AddTransient<InscriptionView>();
             services.AddTransient<AdminRolesView>();
-            services.AddTransient<MainWindow>();
-
-            services.AddScoped<IServiceRepository, ServiceRepository>();
-
-            services.AddTransient<GestionServicesViewModel>();
             services.AddTransient<GestionServicesView>();
+            services.AddTransient<HomeView>();      
+            services.AddTransient<MainWindow>();
+            services.AddTransient<BookingView>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            // On lance la première fenêtre via le ServiceProvider
-            var loginWindow = ServiceProvider.GetRequiredService<ConnexionView>();
-            loginWindow.Show();
+            try
+            {
+                var loginWindow = ServiceProvider.GetRequiredService<ConnexionView>();
+                if (loginWindow != null)
+                {
+                    loginWindow.Show();
+                } // Accolade fermante du IF ajoutée
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.InnerException?.Message);
+            }
         }
     }
 }
