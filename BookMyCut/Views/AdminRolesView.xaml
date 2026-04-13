@@ -1,0 +1,57 @@
+﻿<Window x:Class="BookMyCut.Views.AdminRolesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:BookMyCut.ViewModels"
+        xmlns:models="clr-namespace:BookMyCut.Data.Models;assembly=BookMyCut.dataa"
+        Title="Gestion des Rôles - Admin" Height="450" Width="650" WindowStartupLocation="CenterScreen">
+
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Administration des Utilisateurs" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Utilisateurs}" 
+                  SelectedItem="{Binding UtilisateurSelectionne}" 
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40"/>
+                <DataGridTextColumn Header="Nom Complet" Binding="{Binding NomComplet}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="Rôle Actuel" Binding="{Binding Role}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <TextBlock Text="Changer le rôle en :" VerticalAlignment="Center" Margin="0,0,10,0" FontStyle="Italic"/>
+
+            <Button Content="Coiffeur" 
+                    Command="{Binding ModifierRoleCommand}" 
+                    CommandParameter="{x:Static models:RoleUtilisateur.Coiffeur}" 
+                    Padding="10,5" Margin="5" Background="#F39C12" Foreground="White"/>
+
+            <Button Content="Admin" 
+                    Command="{Binding ModifierRoleCommand}" 
+                    CommandParameter="{x:Static models:RoleUtilisateur.Admin}" 
+                    Padding="10,5" Margin="5" Background="#E74C3C" Foreground="White"/>
+
+            <Button Content="Client" 
+                    Command="{Binding ModifierRoleCommand}" 
+                    CommandParameter="{x:Static models:RoleUtilisateur.Client}" 
+                    Padding="10,5" Margin="5" Background="#3498DB" Foreground="White"/>
+            
+            <Button Content="Gérer les Services" 
+                Command="{Binding OuvrirGestionServicesCommand}" 
+                Margin="5" 
+                Padding="10,5"
+                Background="SkyBlue"
+                FontWeight="Bold"/>
+        
+        </StackPanel>
+        
+    </Grid>
+</Window>

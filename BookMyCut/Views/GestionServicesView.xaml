@@ -1,0 +1,44 @@
+﻿<Window x:Class="BookMyCut.Views.GestionServicesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gestion des Services" Height="450" Width="600">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <TextBlock Text="Nouveau Service" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Nom:"/>
+            <TextBox Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Description:"/>
+            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Prix ($):"/>
+            <TextBox Text="{Binding Prix, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"/>
+
+            <TextBlock Text="Durée (min):"/>
+            <TextBox Text="{Binding Duree, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10"/>
+
+            <Button Content="Ajouter" Command="{Binding AjouterServiceCommand}" Background="LightGreen"/>
+        </StackPanel>
+
+        <DockPanel Grid.Column="1">
+            <Button DockPanel.Dock="Bottom" Content="Supprimer Sélection" 
+                    Command="{Binding SupprimerServiceCommand}" Background="LightCoral" Margin="0,10,0,0"/>
+
+            <DataGrid ItemsSource="{Binding Services}" 
+                      SelectedItem="{Binding ServiceSelectionne}" 
+                      AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
+                    <DataGridTextColumn Header="Prix" Binding="{Binding Prix, StringFormat={}{0:C}}"/>
+                    <DataGridTextColumn Header="Durée" Binding="{Binding DureeMinutes}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>
