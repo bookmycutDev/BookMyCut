@@ -13,7 +13,14 @@ namespace BookMyCut
 
             using (var db = new BookMyCutContext())
             {
-                db.Database.Migrate();
+                try
+                {
+                    db.Database.Migrate();
+                }
+                catch (Microsoft.Data.Sqlite.SqliteException ex) when (ex.Message.Contains("already exists"))
+                {
+                    // ignore si la table existe déjà
+                }
             }
 
             ConnexionView fenetre = new ConnexionView();
