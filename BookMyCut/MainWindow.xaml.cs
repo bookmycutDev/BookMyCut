@@ -73,8 +73,7 @@ namespace BookMyCut
         }
 
         private void cbService_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-        private void BtnServices_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
-        private void BtnCoiffeurs_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
-        private void BtnContact_Click(object sender, RoutedEventArgs e) => MessageBox.Show("À venir...");
+        
+        
     }
 }
