@@ -1,16 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using BookMyCut.Data;
-using BookMyCut.Models;
+using BookMyCut.Data.Data;
+using BookMyCut.Data.Models;
 using BookMyCut.Views;
 using System.Linq;
 using System.Windows;
+using BookMyCut.Utils;
+using System.Collections.Generic;
 
 namespace BookMyCut.ViewModels
 {
     public partial class ConnexionViewModel : ObservableObject
     {
-        // Utilise contexte existant
         private readonly BookMyCutContext _db = new BookMyCutContext();
 
         [ObservableProperty]
@@ -22,41 +23,47 @@ namespace BookMyCut.ViewModels
         [RelayCommand]
         private void SeConnecter()
         {
-            // champs obligatoires
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(MotDePasse))
             {
                 MessageBox.Show("Veuillez remplir tous les champs.", "Champs manquants", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Validation identifiants (Email + Password)
-            // cherche dans table Utilisateurs
+            string mdpSaisiHache = Hash.HashPassword(MotDePasse);
+
             var user = _db.Utilisateurs
-                .FirstOrDefault(u => u.Email == Email && u.MotDePasse == MotDePasse);
+                .FirstOrDefault(u => u.Email == Email && u.MotDePasse == mdpSaisiHache);
 
             if (user != null)
             {
-                // Connexion réussie, redirection
                 MessageBox.Show($"Bienvenue, {user.NomComplet} !", "Connexion réussie");
 
+                // 1. Déterminer la page de destination
                 Window prochainePage;
                 if (user.Role == RoleUtilisateur.Admin)
                 {
-                    prochainePage = new AdminRolesView(); // a faire: page admin
+                    prochainePage = new AdminRolesView();
                 }
                 else
                 {
-                    prochainePage = new MainWindow(); // page client
+                    prochainePage = new MainWindow();
                 }
 
+                // 2. Afficher la nouvelle page
                 prochainePage.Show();
 
-                // Ferme fenetre connexion
-                Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is ConnexionView)?.Close();
+                // 3. Fermer proprement TOUTES les autres fenêtres (Accueil + Login)
+                // On récupère la liste des fenêtres actuelles AVANT de boucler
+                var fenetresAFermer = Application.Current.Windows.Cast<Window>()
+                    .Where(w => w != prochainePage).ToList();
+
+                foreach (var window in fenetresAFermer)
+                {
+                    window.Close();
+                }
             }
             else
             {
-                //Message erreur si invalide
                 MessageBox.Show("Email ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using BookMyCut.Data;
-using BookMyCut.Models;
+using BookMyCut.Data.Data;
+using BookMyCut.Data.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
