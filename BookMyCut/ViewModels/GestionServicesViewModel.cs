@@ -1,7 +1,10 @@
 ﻿using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
+using BookMyCut.Utils;
+using BookMyCut.Views; 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection; // Pour le ServiceProvider
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -11,19 +14,12 @@ namespace BookMyCut.ViewModels
     {
         private readonly IServiceRepository _serviceRepo;
 
-        // Liste affichée dans le DataGrid
-        [ObservableProperty]
-        private ObservableCollection<Service> _services = new();
-
-        // Champs pour l'ajout d'un nouveau service
+        [ObservableProperty] private ObservableCollection<Service> _services = new();
         [ObservableProperty] private string _nom = string.Empty;
         [ObservableProperty] private string _description = string.Empty;
         [ObservableProperty] private string _prix = string.Empty;
-        [ObservableProperty] private string _Duree = string.Empty;
-
-        // Service sélectionné dans la liste
-        [ObservableProperty]
-        private Service? _serviceSelectionne;
+        [ObservableProperty] private string _duree = string.Empty;
+        [ObservableProperty] private Service? _serviceSelectionne;
 
         public GestionServicesViewModel(IServiceRepository serviceRepo)
         {
@@ -40,7 +36,6 @@ namespace BookMyCut.ViewModels
         [RelayCommand]
         private async Task AjouterService()
         {
-            // Validation simple
             if (string.IsNullOrWhiteSpace(Nom) || !decimal.TryParse(Prix, out decimal prixDecimal) || !int.TryParse(Duree, out int dureeInt))
             {
                 MessageBox.Show("Veuillez entrer des informations valides (Prix et Durée doivent être des nombres).");
@@ -56,10 +51,7 @@ namespace BookMyCut.ViewModels
             };
 
             await _serviceRepo.AjouterAsync(nouveauService);
-
-            // Réinitialiser les champs
             Nom = Description = Prix = Duree = string.Empty;
-
             await ChargerServicesAsync();
             MessageBox.Show("Service ajouté !");
         }
@@ -74,6 +66,20 @@ namespace BookMyCut.ViewModels
             {
                 await _serviceRepo.SupprimerAsync(ServiceSelectionne.Id);
                 await ChargerServicesAsync();
+            }
+        }
+
+        
+        [RelayCommand]
+        private void Deconnexion()
+        {
+            SessionUtilisateur.Instance.Deconnecter();
+            var loginView = App.ServiceProvider.GetRequiredService<ConnexionView>();
+            loginView.Show();
+
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win != loginView) win.Close();
             }
         }
     }

@@ -1,22 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using BookMyCut.ViewModels;
 
 namespace BookMyCut.Views
 {
     public partial class HomeView : UserControl
     {
-        public HomeView()
+        public HomeView(HomeViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm;
         }
 
-        private void BtnPrendreRDV_Click(object sender, RoutedEventArgs e)
-        {
-            if (Window.GetWindow(this) is MainWindow mainWindow)
-            {
-     
-                mainWindow.NaviguerVersBooking();
-            }
-        }
     }
 }

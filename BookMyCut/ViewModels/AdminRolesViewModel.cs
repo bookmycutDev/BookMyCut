@@ -1,6 +1,7 @@
 ﻿using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
-using BookMyCut.Views;
+using BookMyCut.Utils;
+using BookMyCut.Views; 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,9 +51,25 @@ namespace BookMyCut.ViewModels
         [RelayCommand]
         private void OuvrirGestionServices()
         {
-            // On demande la fenêtre au ServiceProvider (Injection)
             var servicesView = App.ServiceProvider.GetRequiredService<GestionServicesView>();
             servicesView.Show();
+        }
+
+        [RelayCommand]
+        private void Deconnexion()
+        {
+            
+            SessionUtilisateur.Instance.Deconnecter();
+
+            // Retour à login
+            var loginView = App.ServiceProvider.GetRequiredService<ConnexionView>();
+            loginView.Show();
+
+            
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win != loginView) win.Close();
+            }
         }
     }
 }

@@ -2,8 +2,11 @@
 using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
 using BookMyCut.Utils;
+using BookMyCut.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,5 +45,25 @@ namespace BookMyCut.ViewModels
             MesRendezVous = new ObservableCollection<RendezVous>(listeConfirmee);
             HasNoAppointments = (MesRendezVous.Count == 0);
         }
+
+        [RelayCommand]
+        private void OuvrirBooking()
+        {
+            // Ouvre la fenêtre de réservation via l'injection
+            var bookingView = App.ServiceProvider.GetRequiredService<BookingView>();
+
+            if (bookingView.DataContext is BookingViewModel bookingVm)
+            {
+                // Action déclenchée quand le RDV est validé
+                bookingVm.SurReservationReussie = async () =>
+                {
+                    await ChargerRendezVousAsync(); // Rafraîchit la liste
+                    bookingView.Close();           // Ferme la fenêtre
+                };
+            }
+
+            bookingView.ShowDialog();
+        }
+
     }
 }

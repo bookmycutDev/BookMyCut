@@ -2,48 +2,81 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:BookMyCut.ViewModels"
-        Title="BookMyCut - Inscription" Height="450" Width="400"
-        WindowStartupLocation="CenterScreen">
+        Title="BookMyCut - Inscription" 
+        Width="420" 
+        SizeToContent="Height" 
+        MinWidth="380"
+        MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F6F7">
 
+    <Grid Margin="25">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel VerticalAlignment="Center">
 
-    <Grid Margin="30">
-        <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="CRÉER UN COMPTE" 
+                           FontSize="24" 
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,25"
+                           Foreground="#2C3E50"/>
 
-            <TextBlock Text="CRÉER UN COMPTE" FontSize="22" FontWeight="Bold"
-                       HorizontalAlignment="Center" Margin="0,0,0,20"
-                       Foreground="#2C3E50"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Prénom" Margin="0,10,0,5"/>
-            <TextBox Text="{Binding Prenom, UpdateSourceTrigger=PropertyChanged}"
-                     Padding="8"/>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Prénom" Margin="0,0,0,5" FontWeight="SemiBold" Foreground="#555"/>
+                        <TextBox Text="{Binding Prenom, UpdateSourceTrigger=PropertyChanged}" Padding="10"/>
+                    </StackPanel>
 
-            <TextBlock Text="Nom" Margin="0,10,0,5"/>
-            <TextBox Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}"
-                     Padding="8"/>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Nom" Margin="0,0,0,5" FontWeight="SemiBold" Foreground="#555"/>
+                        <TextBox Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Padding="10"/>
+                    </StackPanel>
+                </Grid>
 
-            <TextBlock Text="Email" Margin="0,10,0,5"/>
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                     Padding="8"/>
+                <TextBlock Text="Email" Margin="0,15,0,5" FontWeight="SemiBold" Foreground="#555"/>
+                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Padding="10"/>
 
-            <TextBlock Text="Mot de passe" Margin="0,10,0,5"/>
-            <PasswordBox x:Name="TxtPassword" Padding="8"
-                         PasswordChanged="PasswordBox_PasswordChanged"/>
+                <TextBlock Text="Mot de passe" Margin="0,15,0,5" FontWeight="SemiBold" Foreground="#555"/>
+                <PasswordBox x:Name="TxtPassword" Padding="10"
+                             PasswordChanged="PasswordBox_PasswordChanged"/>
 
-            <TextBlock Text="Confirmer le mot de passe" Margin="0,10,0,5"/>
-            <PasswordBox x:Name="TxtConfirmPassword" Padding="8"
-                         PasswordChanged="ConfirmPasswordBox_PasswordChanged"/>
+                <TextBlock Text="Confirmer le mot de passe" Margin="0,15,0,5" FontWeight="SemiBold" Foreground="#555"/>
+                <PasswordBox x:Name="TxtConfirmPassword" Padding="10"
+                             PasswordChanged="ConfirmPasswordBox_PasswordChanged"/>
 
-            <Button Content="CRÉER MON COMPTE"
-                    Command="{Binding CreerCompteCommand}"
-                    Margin="0,25,0,0" Padding="12"
-                    Background="#4CAF50" Foreground="White" FontWeight="Bold"/>
+                <Button Content="CRÉER MON COMPTE"
+                        Command="{Binding CreerCompteCommand}"
+                        Margin="0,30,0,0" 
+                        Padding="15"
+                        Background="#4CAF50" 
+                        Foreground="White" 
+                        FontWeight="Bold"
+                        Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
 
-            <Button Content="Déjà un compte ? Se connecter" 
-                Command="{Binding AllerAConnexionCommand}"
-                Margin="0,10,0,0"
-                Height="30"
-                Width="200"/>
+                <Button Content="Déjà un compte ? Se connecter" 
+                        Command="{Binding AllerAConnexionCommand}"
+                        Margin="0,15,0,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Foreground="#3498DB"
+                        Cursor="Hand"
+                        HorizontalAlignment="Center"
+                        FontSize="13">
+                </Button>
 
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
