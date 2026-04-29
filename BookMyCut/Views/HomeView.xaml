@@ -81,6 +81,7 @@
                                                 Cursor="Hand"
                                                 Command="{Binding DataContext.SupprimerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}"/>
+                                                
                                             </StackPanel>
 
 
