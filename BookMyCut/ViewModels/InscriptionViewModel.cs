@@ -1,58 +1,44 @@
-﻿using BookMyCut.Data.Data;
-using BookMyCut.Data.Models;
-using BookMyCut.Utils; 
+﻿using BookMyCut.Data.Models;
+using BookMyCut.Data.Repositories;
+using BookMyCut.Utils;
+using BookMyCut.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using BookMyCut.Views; 
 
 namespace BookMyCut.ViewModels
 {
     public partial class InscriptionViewModel : ObservableObject
     {
-        private readonly BookMyCutContext _db = new BookMyCutContext();
+        private readonly IUtilisateurRepository _repo; // On garde _repo ici aussi
 
-        [ObservableProperty]
-        private string _prenom = string.Empty;
+        [ObservableProperty] private string _prenom = string.Empty;
+        [ObservableProperty] private string _nom = string.Empty;
+        [ObservableProperty] private string _email = string.Empty;
+        [ObservableProperty] private string _motDePasse = string.Empty;
+        [ObservableProperty] private string _confirmationMotDePasse = string.Empty;
 
-        [ObservableProperty]
-        private string _nom = string.Empty;
-
-        [ObservableProperty]
-        private string _email = string.Empty;
-
-        [ObservableProperty]
-        private string _motDePasse = string.Empty;
-
-        [ObservableProperty]
-        private string _confirmationMotDePasse = string.Empty;
+        public InscriptionViewModel(IUtilisateurRepository repo)
+        {
+            _repo = repo;
+        }
 
         [RelayCommand]
-        private void CreerCompte()
+        private async Task CreerCompte()
         {
-            // Utilise _prenom, _nom, etc. (avec underscore) à l'intérieur du ViewModel
-            if (string.IsNullOrWhiteSpace(_prenom) ||
-                string.IsNullOrWhiteSpace(_nom) ||
-                string.IsNullOrWhiteSpace(_email) ||
-                string.IsNullOrWhiteSpace(_motDePasse) ||
-                string.IsNullOrWhiteSpace(_confirmationMotDePasse))
+            if (string.IsNullOrWhiteSpace(_email) || _motDePasse != _confirmationMotDePasse)
             {
-                MessageBox.Show("Veuillez remplir tous les champs.", "Champs manquants",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Données invalides.");
                 return;
             }
 
-            if (_motDePasse != _confirmationMotDePasse)
-            {
-                MessageBox.Show("Les mots de passe ne correspondent pas.", "Erreur",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            // Utilise _repo pour vérifier l'email
+            bool emailExiste = await _repo.EmailExisteAsync(_email);
 
-            if (_db.Utilisateurs.Any(u => u.Email == _email))
+            if (emailExiste)
             {
-                MessageBox.Show("Cet email est déjà associé à un compte.", "Email existant",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Cet email est déjà utilisé.");
                 return;
             }
 
@@ -64,21 +50,22 @@ namespace BookMyCut.ViewModels
                 Role = RoleUtilisateur.Client
             };
 
-            _db.Utilisateurs.Add(nouvelUtilisateur);
-            _db.SaveChanges();
+            await _repo.AjouterAsync(nouvelUtilisateur);
+            MessageBox.Show("Compte créé !");
 
-            MessageBox.Show($"Compte créé ! Bienvenue {nouvelUtilisateur.NomComplet}.",
-                "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //ouvre la fenêtre de connexion
-            var loginWindow = new ConnexionView();
+            // Utilise l'injection pour ouvrir la connexion
+            var loginWindow = App.ServiceProvider.GetRequiredService<ConnexionView>();
             loginWindow.Show();
 
-            //ferme la fenêtre d'inscription
-            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is InscriptionView)?.Close();
+            Application.Current.Windows.OfType<InscriptionView>().FirstOrDefault()?.Close();
+        }
+        [RelayCommand]
+        private void AllerAConnexion()
+        {
+            var connexionView = App.ServiceProvider.GetRequiredService<ConnexionView>();
+            connexionView.Show();
+
+            Application.Current.Windows.OfType<InscriptionView>().FirstOrDefault()?.Close();
         }
     }
 }
-
-
-    
