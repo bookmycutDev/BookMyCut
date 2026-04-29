@@ -24,5 +24,16 @@ namespace BookMyCut.Data.Repositories
                 .Where(rdv => rdv.ClientId == clientId)
                 .ToListAsync();
         }
+
+        public async Task SupprimerAsync(int id)
+        {
+            var rdv = await _db.RendezVous.FindAsync(id);
+
+            if (rdv != null)
+            {
+                _db.RendezVous.Remove(rdv);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }

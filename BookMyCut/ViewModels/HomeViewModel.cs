@@ -65,5 +65,14 @@ namespace BookMyCut.ViewModels
             bookingView.ShowDialog();
         }
 
+        [RelayCommand]
+        private async Task SupprimerRendezVous(RendezVous rdv)
+        {
+            if (rdv == null) return;
+
+            await _rdvRepo.SupprimerAsync(rdv.Id);
+            await ChargerRendezVousAsync();
+        }
+
     }
 }

@@ -61,7 +61,29 @@
                                                 <TextBlock Text="{Binding DateHeure, StringFormat='{}{0:dd MMMM yyyy à HH:mm}'}" Foreground="#E0B03D" Margin="0,4"/>
                                                 <TextBlock Text="{Binding Coiffeur.NomComplet, StringFormat='Avec {0}'}" Foreground="#AAAAAA" FontSize="12" FontStyle="Italic"/>
                                             </StackPanel>
-                                            <TextBlock Text="✓" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#4CAF50" FontSize="26" Opacity="0.8"/>
+
+                                            <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center">
+
+                                              <TextBlock Text="✓"
+                                                Foreground="#4CAF50"
+                                                FontSize="26"
+                                                Opacity="0.8"
+                                                Margin="0,0,10,0"/>
+
+                                              <Button Content="X"
+                                                Width="30"
+                                                Height="30"
+                                                Background="#AA0000"
+                                                Foreground="White"
+                                                FontWeight="Bold"
+                                                Cursor="Hand"
+                                                Command="{Binding DataContext.SupprimerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}"/>
+                                            </StackPanel>
+
+
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

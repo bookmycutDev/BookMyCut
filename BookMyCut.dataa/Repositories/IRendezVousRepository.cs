@@ -6,5 +6,6 @@ namespace BookMyCut.Data.Repositories
     {
         Task AjouterAsync(RendezVous rdv);
         Task<List<RendezVous>> ObtenirParClientIdAsync(int clientId);
+        Task SupprimerAsync(int id);
     }
 }
