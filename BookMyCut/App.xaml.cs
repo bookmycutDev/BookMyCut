@@ -39,6 +39,8 @@ namespace BookMyCut
             services.AddTransient<GestionServicesViewModel>();
             services.AddTransient<HomeViewModel>();
             services.AddTransient<BookingViewModel>();
+            services.AddTransient<ServiceViewModel>();
+            services.AddTransient<MainViewModel>();
 
             //enregistre les Vues
             services.AddTransient<ConnexionView>();
@@ -48,6 +50,7 @@ namespace BookMyCut
             services.AddTransient<HomeView>();
             services.AddTransient<MainWindow>();
             services.AddTransient<BookingView>();
+            services.AddTransient<ServiceView>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)
