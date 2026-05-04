@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookMyCut.Models
+namespace BookMyCut.Data.Models
 {
     public enum RoleUtilisateur { Client, Coiffeur, Admin }
 

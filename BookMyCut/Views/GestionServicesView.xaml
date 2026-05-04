@@ -1,0 +1,140 @@
+﻿<Window x:Class="BookMyCut.Views.GestionServicesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gestion des Services" 
+        Height="550" Width="850"
+        MinHeight="500" MinWidth="750"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F7F9">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Gestion des Services" 
+                       FontSize="22" FontWeight="Bold" Foreground="#2C3E50"
+                       VerticalAlignment="Center"/>
+
+            <Button Content="DÉCONNEXION" 
+                    DockPanel.Dock="Right"
+                    HorizontalAlignment="Right"
+                    Command="{Binding DeconnexionCommand}"
+                    Padding="15,8" 
+                    Background="#FF6B6B" 
+                    Foreground="White" 
+                    FontWeight="Bold" 
+                    BorderThickness="0" 
+                    Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="6"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </DockPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" CornerRadius="10" Padding="15" Margin="0,0,15,0">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.1"/>
+                </Border.Effect>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <TextBlock Text="Ajouter un service" FontSize="16" FontWeight="Bold" Foreground="#34495E" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Nom du service" FontWeight="SemiBold" Margin="0,0,0,5" FontSize="12"/>
+                        <TextBox Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Padding="8" Margin="0,0,0,12"/>
+
+                        <TextBlock Text="Description" FontWeight="SemiBold" Margin="0,0,0,5" FontSize="12"/>
+                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" 
+                                 Padding="8" Margin="0,0,0,12" 
+                                 Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Prix ($)" FontWeight="SemiBold" Margin="0,0,0,5" FontSize="12"/>
+                                <TextBox Text="{Binding Prix, UpdateSourceTrigger=PropertyChanged}" Padding="8"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Durée (min)" FontWeight="SemiBold" Margin="0,0,0,5" FontSize="12"/>
+                                <TextBox Text="{Binding Duree, UpdateSourceTrigger=PropertyChanged}" Padding="8"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Button Content="AJOUTER" 
+                                Command="{Binding AjouterServiceCommand}" 
+                                Margin="0,25,0,0" 
+                                Padding="12" 
+                                Background="#2ECC71" 
+                                Foreground="White" 
+                                FontWeight="Bold"
+                                BorderThickness="0"
+                                Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="White" CornerRadius="10" Padding="5" BorderBrush="#DDD" BorderThickness="1">
+                    <DataGrid ItemsSource="{Binding Services}" 
+                              SelectedItem="{Binding ServiceSelectionne}" 
+                              AutoGenerateColumns="False" 
+                              IsReadOnly="True"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              RowHeight="40">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Service" Binding="{Binding Nom}" Width="2*"/>
+                            <DataGridTextColumn Header="Prix" Binding="{Binding Prix, StringFormat={}{0:C}}" Width="*"/>
+                            <DataGridTextColumn Header="Durée" Binding="{Binding DureeMinutes, StringFormat={}{0} min}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+                <Button Grid.Row="1" 
+                        Content="SUPPRIMER LA SÉLECTION" 
+                        Command="{Binding SupprimerServiceCommand}" 
+                        Background="#E74C3C" 
+                        Foreground="White" 
+                        FontWeight="Bold"
+                        Padding="15,12" 
+                        Margin="0,15,0,0"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

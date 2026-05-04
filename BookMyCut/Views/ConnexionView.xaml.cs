@@ -8,11 +8,11 @@ namespace BookMyCut.Views
 {
     public partial class ConnexionView : Window
     {
-        private readonly BookMyCutContext _db = new BookMyCutContext();
-
-        public ConnexionView()
+        // ViewModel injecté 
+        public ConnexionView(ConnexionViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm; // Branche  ViewModel a vue
         }
 
         private void BtnConnexion_Click(object sender, RoutedEventArgs e)
