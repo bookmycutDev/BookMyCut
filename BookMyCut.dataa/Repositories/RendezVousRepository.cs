@@ -26,13 +26,13 @@ namespace BookMyCut.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task SupprimerAsync(int id)
+        public async Task AnnulerAsync(int id)
         {
             var rdv = await _db.RendezVous.FindAsync(id);
 
             if (rdv != null)
             {
-                _db.RendezVous.Remove(rdv);
+                rdv.Statut = "Annulé";
                 await _db.SaveChangesAsync();
             }
         }

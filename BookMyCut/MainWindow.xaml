@@ -97,6 +97,12 @@
                                 FontWeight="SemiBold"
                                 Margin="15,0,0,0" 
                                 Click="BtnDeconnexion_Click"/>
+                        <Button Content="Historique"
+                                Style="{StaticResource NavButtonStyle}"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                Margin="15,0,0,0"
+                                Command="{Binding AfficherHistoriqueCommand}"/>
                     </StackPanel>
                 </Grid>
             </Border>

@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace BookMyCut.ViewModels
 {
@@ -80,11 +81,30 @@ namespace BookMyCut.ViewModels
         }
 
         [RelayCommand]
-        private async Task SupprimerRendezVous(RendezVous rdv)
+        private async Task AnnulerRendezVous(RendezVous rdv)
         {
-            if (rdv == null) return;
+            if (rdv == null)
+                return;
 
-            await _rdvRepo.SupprimerAsync(rdv.Id);
+            var result = MessageBox.Show(
+                "Voulez-vous vraiment annuler ce rendez-vous ?",
+                "Confirmation d'annulation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            await _rdvRepo.AnnulerAsync(rdv.Id);
+
+            MessageBox.Show(
+                "Votre rendez-vous a été annulé avec succès.",
+                "Annulation confirmée",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+
             await ChargerRendezVousAsync();
         }
     }

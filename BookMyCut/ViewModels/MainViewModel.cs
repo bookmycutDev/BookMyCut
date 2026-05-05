@@ -40,5 +40,18 @@ namespace BookMyCut.ViewModels
             // On affiche enfin la vraie vue des services au lieu du MessageBox !
             CurrentContent = App.ServiceProvider.GetRequiredService<ServiceView>();
         }
+
+        [RelayCommand]
+        public void AfficherHistorique()
+        {
+            var historiqueView = App.ServiceProvider.GetRequiredService<HistoriqueView>();
+
+            if (historiqueView.DataContext is HistoriqueViewModel vm)
+            {
+                _ = vm.ChargerHistoriqueAsync();
+            }
+
+            CurrentContent = historiqueView;
+        }
     }
 }

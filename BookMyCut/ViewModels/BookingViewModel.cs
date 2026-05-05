@@ -141,6 +141,17 @@ namespace BookMyCut.ViewModels
 
             var dateHeure = DateSelectionnee.Date.Add(TimeSpan.Parse(HeureSelectionnee));
 
+            if (dateHeure <= DateTime.Now)
+            {
+                MessageBox.Show(
+                    "Impossible de choisir une date ou une heure déjà passée.",
+                    "Date invalide",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return;
+            }
+
             bool disponible = await _rdvRepo.EstCreneauDisponibleAsync(
                 CoiffeurSelectionne.Id,
                 dateHeure,

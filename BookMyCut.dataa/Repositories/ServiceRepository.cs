@@ -32,10 +32,11 @@ namespace BookMyCut.Data.Repositories
 
         public async Task SupprimerAsync(int id)
         {
-            var service = await _db.Services.FindAsync(id);
-            if (service != null)
+            var rdv = await _db.RendezVous.FindAsync(id);
+
+            if (rdv != null)
             {
-                _db.Services.Remove(service);
+                rdv.Statut = "Annulé";
                 await _db.SaveChangesAsync();
             }
         }

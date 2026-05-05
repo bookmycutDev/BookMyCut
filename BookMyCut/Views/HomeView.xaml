@@ -83,15 +83,15 @@
                                                         Margin="0,0,8,0"
                                                         Command="{Binding DataContext.ModifierRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                         CommandParameter="{Binding}"/>
-
-                                                <Button Content="X"
-                                                        Width="30"
+                                                <Button Content="Annuler"
+                                                        Width="75"
                                                         Height="30"
                                                         Background="#AA0000"
                                                         Foreground="White"
                                                         FontWeight="Bold"
+                                                        FontSize="11"
                                                         Cursor="Hand"
-                                                        Command="{Binding DataContext.SupprimerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                        Command="{Binding DataContext.AnnulerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                         CommandParameter="{Binding}"/>
                                             </StackPanel>
                                         </Grid>
