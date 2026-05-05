@@ -7,5 +7,8 @@ namespace BookMyCut.Data.Repositories
         Task AjouterAsync(RendezVous rdv);
         Task<List<RendezVous>> ObtenirParClientIdAsync(int clientId);
         Task SupprimerAsync(int id);
+
+        Task ModifierAsync(RendezVous rdv);
+        Task<bool> EstCreneauDisponibleAsync(int coiffeurId, DateTime debut, int dureeMinutes, int? rdvIdIgnore = null);
     }
 }

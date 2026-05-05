@@ -56,35 +56,44 @@
                                 <DataTemplate>
                                     <Border Background="#22FFFFFF" Margin="0,0,0,12" Padding="15" CornerRadius="10" BorderBrush="#11FFFFFF" BorderThickness="1">
                                         <Grid>
-                                            <StackPanel>
+                                            <StackPanel Margin="0,0,145,0">
                                                 <TextBlock Text="{Binding Service.Nom}" FontWeight="Bold" Foreground="White" FontSize="16"/>
                                                 <TextBlock Text="{Binding DateHeure, StringFormat='{}{0:dd MMMM yyyy à HH:mm}'}" Foreground="#E0B03D" Margin="0,4"/>
                                                 <TextBlock Text="{Binding Coiffeur.NomComplet, StringFormat='Avec {0}'}" Foreground="#AAAAAA" FontSize="12" FontStyle="Italic"/>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Center">
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center">
 
-                                              <TextBlock Text="✓"
-                                                Foreground="#4CAF50"
-                                                FontSize="26"
-                                                Opacity="0.8"
-                                                Margin="0,0,10,0"/>
+                                                <TextBlock Text="✓"
+                                                           Foreground="#4CAF50"
+                                                           FontSize="26"
+                                                           Opacity="0.8"
+                                                           Margin="0,0,10,0"/>
 
-                                              <Button Content="X"
-                                                Width="30"
-                                                Height="30"
-                                                Background="#AA0000"
-                                                Foreground="White"
-                                                FontWeight="Bold"
-                                                Cursor="Hand"
-                                                Command="{Binding DataContext.SupprimerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding}"/>
-                                                
+                                                <Button Content="Modifier"
+                                                        Width="75"
+                                                        Height="30"
+                                                        Background="#E86C1A"
+                                                        Foreground="White"
+                                                        FontWeight="Bold"
+                                                        FontSize="11"
+                                                        Cursor="Hand"
+                                                        Margin="0,0,8,0"
+                                                        Command="{Binding DataContext.ModifierRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                        CommandParameter="{Binding}"/>
+
+                                                <Button Content="X"
+                                                        Width="30"
+                                                        Height="30"
+                                                        Background="#AA0000"
+                                                        Foreground="White"
+                                                        FontWeight="Bold"
+                                                        Cursor="Hand"
+                                                        Command="{Binding DataContext.SupprimerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                        CommandParameter="{Binding}"/>
                                             </StackPanel>
-
-
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
