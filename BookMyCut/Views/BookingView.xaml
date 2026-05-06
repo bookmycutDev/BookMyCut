@@ -16,7 +16,7 @@
                 MinWidth="450"
                 MaxWidth="600">
             <StackPanel>
-                <TextBlock Text="PRENDRE UN RENDEZ-VOUS" 
+                <TextBlock Text="{Binding TitreFenetre}" 
                            FontSize="26" 
                            FontWeight="Bold" 
                            Foreground="#E0B03D" 
@@ -43,9 +43,15 @@
                             FontSize="14"
                             HorizontalAlignment="Stretch"/>
 
-                <Button Content="CONFIRMER LA RÉSERVATION" 
+                <TextBlock Text="Choisir une Heure" Foreground="White" FontSize="14" Margin="0,20,0,8"/>
+                <ComboBox ItemsSource="{Binding HeuresDisponibles}"
+                          SelectedItem="{Binding HeureSelectionnee}"
+                          Padding="12"
+                          FontSize="14"/>
+
+                <Button Content="{Binding TexteBouton}" 
                         Command="{Binding ConfirmerRendezVousCommand}"
-                        Margin="0,45,0,0" 
+                        Margin="0,35,0,0" 
                         Height="55"
                         Background="#E86C1A" 
                         Foreground="White" 

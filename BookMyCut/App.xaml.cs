@@ -40,7 +40,9 @@ namespace BookMyCut
             services.AddTransient<HomeViewModel>();
             services.AddTransient<BookingViewModel>();
             services.AddTransient<ServiceViewModel>();
+            services.AddTransient<HistoriqueViewModel>();
             services.AddTransient<MainViewModel>();
+
 
             //enregistre les Vues
             services.AddTransient<ConnexionView>();
@@ -48,6 +50,7 @@ namespace BookMyCut
             services.AddTransient<AdminRolesView>();
             services.AddTransient<GestionServicesView>();
             services.AddTransient<HomeView>();
+            services.AddTransient<HistoriqueView>();
             services.AddTransient<MainWindow>();
             services.AddTransient<BookingView>();
             services.AddTransient<ServiceView>();

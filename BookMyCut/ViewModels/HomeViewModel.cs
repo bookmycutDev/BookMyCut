@@ -1,15 +1,12 @@
-﻿using BookMyCut.Data.Data;
-using BookMyCut.Data.Models;
+﻿using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
 using BookMyCut.Utils;
 using BookMyCut.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookMyCut.ViewModels
 {
@@ -21,7 +18,6 @@ namespace BookMyCut.ViewModels
         [ObservableProperty] private ObservableCollection<RendezVous> _mesRendezVous = new();
         [ObservableProperty] private bool _hasNoAppointments;
 
-        // Change le constructeur pour injecter le repository
         public HomeViewModel(IRendezVousRepository rdvRepo)
         {
             _rdvRepo = rdvRepo;
@@ -35,30 +31,28 @@ namespace BookMyCut.ViewModels
 
             int currentUserId = SessionUtilisateur.Instance.UtilisateurConnecte.Id;
 
-           
             var liste = await _rdvRepo.ObtenirParClientIdAsync(currentUserId);
 
-            // filtre par statut 
-            var listeConfirmee = liste.Where(r => r.Statut == "Confirmé").OrderBy(r => r.DateHeure).ToList();
+            var listeConfirmee = liste
+                .Where(r => r.Statut == "Confirmé")
+                .OrderBy(r => r.DateHeure)
+                .ToList();
 
-            // On met à jour l'interface
             MesRendezVous = new ObservableCollection<RendezVous>(listeConfirmee);
-            HasNoAppointments = (MesRendezVous.Count == 0);
+            HasNoAppointments = MesRendezVous.Count == 0;
         }
 
         [RelayCommand]
         private void OuvrirBooking()
         {
-            // Ouvre la fenêtre de réservation via l'injection
             var bookingView = App.ServiceProvider.GetRequiredService<BookingView>();
 
             if (bookingView.DataContext is BookingViewModel bookingVm)
             {
-                // Action déclenchée quand le RDV est validé
                 bookingVm.SurReservationReussie = async () =>
                 {
-                    await ChargerRendezVousAsync(); // Rafraîchit la liste
-                    bookingView.Close();           // Ferme la fenêtre
+                    await ChargerRendezVousAsync();
+                    bookingView.Close();
                 };
             }
 
@@ -66,13 +60,52 @@ namespace BookMyCut.ViewModels
         }
 
         [RelayCommand]
-        private async Task SupprimerRendezVous(RendezVous rdv)
+        private async Task ModifierRendezVous(RendezVous rdv)
         {
             if (rdv == null) return;
 
-            await _rdvRepo.SupprimerAsync(rdv.Id);
-            await ChargerRendezVousAsync();
+            var bookingView = App.ServiceProvider.GetRequiredService<BookingView>();
+
+            if (bookingView.DataContext is BookingViewModel bookingVm)
+            {
+                await bookingVm.InitialiserModificationAsync(rdv);
+
+                bookingVm.SurReservationReussie = async () =>
+                {
+                    await ChargerRendezVousAsync();
+                    bookingView.Close();
+                };
+            }
+
+            bookingView.ShowDialog();
         }
 
+        [RelayCommand]
+        private async Task AnnulerRendezVous(RendezVous rdv)
+        {
+            if (rdv == null)
+                return;
+
+            var result = MessageBox.Show(
+                "Voulez-vous vraiment annuler ce rendez-vous ?",
+                "Confirmation d'annulation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            await _rdvRepo.AnnulerAsync(rdv.Id);
+
+            MessageBox.Show(
+                "Votre rendez-vous a été annulé avec succès.",
+                "Annulation confirmée",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+
+            await ChargerRendezVousAsync();
+        }
     }
 }
