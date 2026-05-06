@@ -49,9 +49,11 @@ namespace BookMyCut
             services.AddTransient<HomeView>();
             services.AddTransient<MainWindow>();
             services.AddTransient<BookingView>();
+            services.AddTransient<NosCoiffeursViewModel>();
+            services.AddTransient<NosCoiffeursView>();
 
             // Déjà présent chez toi
-            services.AddTransient<ModifierProfil>();
+            services.AddTransient<ModifierProfilView>();
 
             // AJOUTS disponibilités
             services.AddTransient<DisponibilitesCoiffeurView>();
