@@ -1,15 +1,14 @@
-﻿<Window x:Class="BookMyCut.MainWindow"
+<Window x:Class="BookMyCut.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="BookMyCut" Height="720" Width="1200"
-        MinHeight="600" MinWidth="900" 
+        MinHeight="600" MinWidth="900"
         WindowStartupLocation="CenterScreen" Background="Black">
 
     <Window.Resources>
-        <!-- Style pour les boutons de navigation -->
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
@@ -35,25 +34,19 @@
     </Window.Resources>
 
     <Grid>
-        <!-- Arrière-plan avec image -->
         <Grid.Background>
             <ImageBrush ImageSource="imgs/BookMyCutBG.png" Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <!-- Filtre sombre pour la lisibilité -->
         <Rectangle Fill="#B3000000"/>
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" MinHeight="85"/>
-                <!-- Header -->
                 <RowDefinition Height="*"/>
-                <!-- Contenu -->
                 <RowDefinition Height="60"/>
-                <!-- Footer -->
             </Grid.RowDefinitions>
 
-            <!-- BARRE DE NAVIGATION (HEADER) -->
             <Border Grid.Row="0" Background="#40000000" BorderBrush="#22FFFFFF" BorderThickness="0,0,0,1">
                 <Grid Margin="30,10">
                     <Grid.ColumnDefinitions>
@@ -62,63 +55,60 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Logo -->
+                    <!-- Logo MASTER conservé -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock Text="✂" FontSize="28" Foreground="#E0B03D" Margin="0,0,12,0"/>
                         <TextBlock Text="Book" FontSize="30" FontWeight="Bold" Foreground="White"/>
                         <TextBlock Text="MyCut" FontSize="30" FontWeight="Bold" Foreground="#E86C1A"/>
                     </StackPanel>
 
-                    <!-- Menu et Utilisateur -->
+                    <!-- Menu Jonathan2.0 -->
                     <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                        <!-- Liaison avec MessageBienvenue du MainViewModel -->
-                        <TextBlock Text="{Binding MessageBienvenue}" 
-                                   Foreground="White" 
-                                   FontSize="14" 
-                                   VerticalAlignment="Center" 
-                                   Margin="0,0,20,0" 
+                        <TextBlock x:Name="txtUser"
+                                   Text="Bonjour !"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,25,0"
                                    FontStyle="Italic"
-                                   Opacity="0.7"/>
+                                   Opacity="0.8"/>
 
-                        <!-- Navigation vers l'Accueil -->
-                        <Button Content="Accueil" 
-                                Style="{StaticResource NavButtonStyle}" 
-                                Command="{Binding AfficherAccueilCommand}"/>
-
-                        <!-- Navigation vers les Services -->
-                        <Button Content="Services" 
-                                Style="{StaticResource NavButtonStyle}" 
-                                Command="{Binding AfficherServicesCommand}"/>
-
-                        <!-- Déconnexion (Gérée par le Code-Behind car elle ferme la Window) -->
-                        <Button Content="Déconnexion" 
-                                Style="{StaticResource NavButtonStyle}" 
-                                Foreground="#FF6B6B" 
-                                FontWeight="SemiBold"
-                                Margin="15,0,0,0" 
-                                Click="BtnDeconnexion_Click"/>
-                        <Button Content="Historique"
+                        <Button Content="Accueil"
                                 Style="{StaticResource NavButtonStyle}"
-                                Foreground="White"
+                                Click="BtnAccueil_Click"/>
+
+                        <Button Content="Modifier profil"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnModifierProfil_Click"/>
+
+                        <Button Content="Nos coiffeurs"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnNosCoiffeurs_Click"/>
+
+                        <Button Content="Services"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnServices_Click"/>
+
+                        <Button Content="Déconnexion"
+                                Style="{StaticResource NavButtonStyle}"
+                                Foreground="#FF6B6B"
                                 FontWeight="SemiBold"
                                 Margin="15,0,0,0"
-                                Command="{Binding AfficherHistoriqueCommand}"/>
+                                Click="BtnDeconnexion_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <!-- CONTENU DYNAMIQUE -->
             <Grid Grid.Row="1">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <!-- Liaison avec CurrentContent du MainViewModel -->
-                    <ContentControl Content="{Binding CurrentContent}" Margin="20"/>
+                    <ContentControl x:Name="MainContent" Margin="20"/>
                 </ScrollViewer>
             </Grid>
 
             <Border Grid.Row="2" Background="#40000000">
-                <TextBlock Text="© 2026 BookMyCut — Votre style, notre passion" 
-                           Foreground="#88FFFFFF" 
-                           HorizontalAlignment="Center" 
+                <TextBlock Text="© 2026 BookMyCut — Votre style, notre passion"
+                           Foreground="#88FFFFFF"
+                           HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontSize="12"/>
             </Border>
