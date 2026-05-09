@@ -1,0 +1,98 @@
+<Window x:Class="BookMyCut.Views.NosCoiffeursView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="1000"
+             Background="Transparent">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,25">
+            <TextBlock Text="Nos coiffeurs"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="#E0B03D"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Découvrez notre équipe et choisissez le style qui vous correspond."
+                       FontSize="15"
+                       Foreground="#DDDDDD"
+                       HorizontalAlignment="Center"
+                       Margin="0,8,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Coiffeurs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#33000000"
+                                    Width="280"
+                                    Margin="12"
+                                    Padding="20"
+                                    CornerRadius="18">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <Border Width="110"
+                                            Height="110"
+                                            CornerRadius="55"
+                                            Background="#E86C1A"
+                                            BorderBrush="#F0C36D"
+                                            BorderThickness="3"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,15">
+                                        <TextBlock Text="{Binding Initiales}"
+                                                   Foreground="White"
+                                                   FontSize="34"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   TextAlignment="Center"/>
+                                    </Border>
+
+                                    <TextBlock Text="{Binding NomComplet}"
+                                               Foreground="White"
+                                               FontSize="20"
+                                               FontWeight="Bold"
+                                               TextAlignment="Center"
+                                               Margin="0,0,0,10"
+                                               TextWrapping="Wrap"/>
+
+                                    <TextBlock Text="{Binding Description}"
+                                               Foreground="#DDDDDD"
+                                               FontSize="14"
+                                               TextAlignment="Center"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <TextBlock Text="Aucun coiffeur n'est disponible pour le moment."
+                       Foreground="#DDDDDD"
+                       FontSize="16"
+                       FontStyle="Italic"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding AucunCoiffeur, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </Grid>
+    </Grid>
+</Window>
