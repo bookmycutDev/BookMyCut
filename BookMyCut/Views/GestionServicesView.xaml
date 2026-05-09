@@ -1,4 +1,4 @@
-﻿<Window x:Class="BookMyCut.Views.GestionServicesView"
+<Window x:Class="BookMyCut.Views.GestionServicesView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Gestion des Services" 
@@ -78,10 +78,45 @@
                         </Grid>
 
                         <Button Content="AJOUTER" 
-                                Command="{Binding AjouterServiceCommand}" 
+                                Command="{Binding AjouterServiceCommand}"
+                                IsEnabled="{Binding PeutAjouter}"
                                 Margin="0,25,0,0" 
                                 Padding="12" 
                                 Background="#2ECC71" 
+                                Foreground="White" 
+                                FontWeight="Bold"
+                                BorderThickness="0"
+                                Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button Content="MODIFIER LA SÉLECTION" 
+                                Command="{Binding ModifierServiceCommand}"
+                                IsEnabled="{Binding PeutModifierOuAnnuler}"
+                                Margin="0,10,0,0" 
+                                Padding="12" 
+                                Background="#F39C12" 
+                                Foreground="White" 
+                                FontWeight="Bold"
+                                BorderThickness="0"
+                                Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button Content="ANNULER L'ÉDITION" 
+                                Command="{Binding AnnulerEditionCommand}"
+                                IsEnabled="{Binding PeutModifierOuAnnuler}"
+                                Margin="0,10,0,0" 
+                                Padding="12" 
+                                Background="#95A5A6" 
                                 Foreground="White" 
                                 FontWeight="Bold"
                                 BorderThickness="0"
