@@ -102,6 +102,20 @@ namespace BookMyCut
             MainContent.Content = view;
         }
 
+        private void AfficherHistorique()
+        {
+            var historiqueView = App.ServiceProvider.GetRequiredService<HistoriqueView>();
+            var historiqueVm = App.ServiceProvider.GetRequiredService<HistoriqueViewModel>();
+
+            historiqueView.DataContext = historiqueVm;
+            MainContent.Content = historiqueView;
+        }
+
+        private void BtnHistorique_Click(object sender, RoutedEventArgs e)
+        {
+            AfficherHistorique();
+        }
+
         public void NaviguerVersBooking()
         {
             AfficherServices();

@@ -89,6 +89,10 @@
                                 Style="{StaticResource NavButtonStyle}"
                                 Click="BtnServices_Click"/>
 
+                        <Button Content="Historique"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnHistorique_Click"/>
+
                         <Button Content="Déconnexion"
                                 Style="{StaticResource NavButtonStyle}"
                                 Foreground="#FF6B6B"
