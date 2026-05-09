@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using BookMyCut.Data.Data;
 using BookMyCut.Data.Repositories;
 using BookMyCut.ViewModels;
 using BookMyCut.Views;
-using BookMyCut.Data.Models; // Ajouté pour les modèles
-using BookMyCut.Utils;       // Ajouté pour le hachage
+using BookMyCut.Data.Models;
+using BookMyCut.Utils;
 using System.Linq;
 
 namespace BookMyCut
@@ -18,21 +18,22 @@ namespace BookMyCut
         public App()
         {
             var services = new ServiceCollection();
-            ConfigureServices(services); //configure tout en premier
-            ServiceProvider = services.BuildServiceProvider(); // construit catalogue(fin)
+            ConfigureServices(services);
+            ServiceProvider = services.BuildServiceProvider();
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
-            // enregistre la Base de Données
+            // Base de données
             services.AddDbContext<BookMyCutContext>();
 
-            //  enregistre les Repositories
+            // Repositories
             services.AddScoped<IUtilisateurRepository, UtilisateurRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IRendezVousRepository, RendezVousRepository>();
+            services.AddScoped<IDisponibiliteRepository, DisponibiliteRepository>();
 
-            //enregistre les ViewModels
+            // ViewModels
             services.AddTransient<ConnexionViewModel>();
             services.AddTransient<InscriptionViewModel>();
             services.AddTransient<AdminRolesViewModel>();
@@ -43,8 +44,11 @@ namespace BookMyCut
             services.AddTransient<HistoriqueViewModel>();
             services.AddTransient<MainViewModel>();
 
+            // Ajouts Jonathan2.0
+            services.AddTransient<NosCoiffeursViewModel>();
+            services.AddTransient<DisponibilitesCoiffeurViewModel>();
 
-            //enregistre les Vues
+            // Vues
             services.AddTransient<ConnexionView>();
             services.AddTransient<InscriptionView>();
             services.AddTransient<AdminRolesView>();
@@ -54,14 +58,19 @@ namespace BookMyCut
             services.AddTransient<MainWindow>();
             services.AddTransient<BookingView>();
             services.AddTransient<ServiceView>();
+
+            // Ajouts Jonathan2.0
+            services.AddTransient<NosCoiffeursView>();
+            services.AddTransient<ModifierProfilView>();
+            services.AddTransient<DisponibilitesCoiffeurView>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
             try
             {
-                
                 // Scoped au démarrage
                 using (var scope = ServiceProvider.CreateScope())
                 {
@@ -72,7 +81,7 @@ namespace BookMyCut
                 if (loginWindow != null)
                 {
                     loginWindow.Show();
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -89,12 +98,32 @@ namespace BookMyCut
             var servicesExistants = await serviceRepo.ObtenirTousAsync();
             if (!servicesExistants.Any())
             {
-                await serviceRepo.AjouterAsync(new Service { Nom = "Coupe Classique", Description = "Shampoing, coupe et coiffage", Prix = 25.00m, DureeMinutes = 30 });
-                await serviceRepo.AjouterAsync(new Service { Nom = "Taille de Barbe", Description = "Tracé et entretien barbe", Prix = 15.00m, DureeMinutes = 20 });
-                await serviceRepo.AjouterAsync(new Service { Nom = "Forfait Complet", Description = "La totale : Coupe + Barbe", Prix = 35.00m, DureeMinutes = 50 });
+                await serviceRepo.AjouterAsync(new Service
+                {
+                    Nom = "Coupe Classique",
+                    Description = "Shampoing, coupe et coiffage",
+                    Prix = 25.00m,
+                    DureeMinutes = 30
+                });
+
+                await serviceRepo.AjouterAsync(new Service
+                {
+                    Nom = "Taille de Barbe",
+                    Description = "Tracé et entretien barbe",
+                    Prix = 15.00m,
+                    DureeMinutes = 20
+                });
+
+                await serviceRepo.AjouterAsync(new Service
+                {
+                    Nom = "Forfait Complet",
+                    Description = "La totale : Coupe + Barbe",
+                    Prix = 35.00m,
+                    DureeMinutes = 50
+                });
             }
 
-            //COIFFEURS (si aucun coiffeur existe)
+            // COIFFEURS (si aucun coiffeur existe)
             var utilisateurs = await userRepo.ObtenirTousAsync();
             if (!utilisateurs.Any(u => u.Role == RoleUtilisateur.Coiffeur))
             {
@@ -102,7 +131,6 @@ namespace BookMyCut
 
                 await userRepo.AjouterAsync(new Utilisateur
                 {
-                   
                     NomComplet = "Dusly Nestor",
                     Email = "dusly@test.com",
                     MotDePasse = mdpHache,
@@ -111,7 +139,6 @@ namespace BookMyCut
 
                 await userRepo.AjouterAsync(new Utilisateur
                 {
- 
                     NomComplet = "Jonathan Riquelme",
                     Email = "jonathan@test.com",
                     MotDePasse = mdpHache,
