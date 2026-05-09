@@ -1,5 +1,6 @@
-﻿using System.Windows.Controls;
 using BookMyCut.ViewModels;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace BookMyCut.Views
 {
@@ -11,5 +12,10 @@ namespace BookMyCut.Views
             DataContext = vm;
         }
 
+        private void BtnPrendreRDV_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow?.NaviguerVersBooking();
+        }
     }
 }
