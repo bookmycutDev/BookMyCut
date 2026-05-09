@@ -15,8 +15,7 @@ namespace BookMyCut
             MettreAJourNomUtilisateur();
             AfficherVueInitialeSelonRole();
 
-            //DataContext pour permettre les Bindings dans le XAML
-            this.DataContext = vm;
+            
         }
 
         public void MettreAJourNomUtilisateur()
@@ -68,15 +67,18 @@ namespace BookMyCut
         private void AfficherServices()
         {
             var bookingView = App.ServiceProvider.GetRequiredService<BookingView>();
-            var bookingVm = App.ServiceProvider.GetRequiredService<BookingViewModel>();
 
-            bookingVm.SurReservationReussie = () =>
+            if (bookingView.DataContext is BookingViewModel bookingVm)
             {
-                AfficherAccueilPublic();
-            };
+                bookingVm.SurReservationReussie = () =>
+                {
+                    bookingView.Close();
+                    AfficherAccueilPublic();
+                };
+            }
 
-            bookingView.DataContext = bookingVm;
-            MainContent.Content = bookingView;
+            bookingView.Owner = this;
+            bookingView.ShowDialog();
         }
 
         private void AfficherModifierProfil()
@@ -88,9 +90,6 @@ namespace BookMyCut
         private void AfficherNosCoiffeurs()
         {
             var view = App.ServiceProvider.GetRequiredService<NosCoiffeursView>();
-            var vm = App.ServiceProvider.GetRequiredService<NosCoiffeursViewModel>();
-
-            view.DataContext = vm;
             MainContent.Content = view;
         }
 

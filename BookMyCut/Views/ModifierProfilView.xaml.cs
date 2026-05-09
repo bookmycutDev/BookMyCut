@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using BookMyCut.Data.Data;
 using BookMyCut.Data.Models;
 using BookMyCut.Utils;
+using System.Windows.Controls;
 
 namespace BookMyCut.Views
 {
-    public partial class ModifierProfilView : Window
+    public partial class ModifierProfilView : UserControl
     {
         private readonly BookMyCutContext _db;
         private Utilisateur? _utilisateurConnecte;

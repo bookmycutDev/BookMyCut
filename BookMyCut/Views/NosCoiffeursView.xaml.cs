@@ -1,9 +1,9 @@
-using System.Windows;
+using System.Windows.Controls;
 using BookMyCut.ViewModels;
 
 namespace BookMyCut.Views
 {
-    public partial class NosCoiffeursView : Window
+    public partial class NosCoiffeursView : UserControl
     {
         // ViewModel injecté
         public NosCoiffeursView(NosCoiffeursViewModel vm)

@@ -43,8 +43,6 @@ namespace BookMyCut
             services.AddTransient<ServiceViewModel>();
             services.AddTransient<HistoriqueViewModel>();
             services.AddTransient<MainViewModel>();
-
-            // Ajouts Jonathan2.0
             services.AddTransient<NosCoiffeursViewModel>();
             services.AddTransient<DisponibilitesCoiffeurViewModel>();
 
@@ -58,8 +56,6 @@ namespace BookMyCut
             services.AddTransient<MainWindow>();
             services.AddTransient<BookingView>();
             services.AddTransient<ServiceView>();
-
-            // Ajouts Jonathan2.0
             services.AddTransient<NosCoiffeursView>();
             services.AddTransient<ModifierProfilView>();
             services.AddTransient<DisponibilitesCoiffeurView>();

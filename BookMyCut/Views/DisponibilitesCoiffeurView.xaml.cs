@@ -1,15 +1,12 @@
-using System.Windows;
-using BookMyCut.ViewModels;
+﻿using System.Windows.Controls;
 
 namespace BookMyCut.Views
 {
-    public partial class DisponibilitesCoiffeurView : Window
+    public partial class DisponibilitesCoiffeurView : UserControl
     {
-        // ViewModel injecté
-        public DisponibilitesCoiffeurView(DisponibilitesCoiffeurViewModel vm)
+        public DisponibilitesCoiffeurView()
         {
             InitializeComponent();
-            DataContext = vm; // Branche le ViewModel à la vue
         }
     }
 }
