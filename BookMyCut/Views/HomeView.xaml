@@ -79,6 +79,7 @@
                                                     Background="#AA0000" Foreground="White" FontWeight="Bold" FontSize="11" Cursor="Hand"
                                                     Command="{Binding DataContext.AnnulerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                     CommandParameter="{Binding}"/>
+                                            
                                         </StackPanel>
                                     </Grid>
                                 </Border>
