@@ -1,10 +1,10 @@
+using System.Collections.ObjectModel;
+using System.Windows;
 using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
 using BookMyCut.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace BookMyCut.ViewModels
 {
@@ -260,12 +260,26 @@ namespace BookMyCut.ViewModels
             }
             else
             {
+                //Sauvegarder aciennes valeur avant de les ecraser.
+                int ancienCoiffeurId = _rdvAModifier.CoiffeurId;
+                DateTime ancienneDateHeure = _rdvAModifier.DateHeure;
+
                 _rdvAModifier.CoiffeurId = CoiffeurSelectionne.Id;
                 _rdvAModifier.ServiceId = ServiceSelectionne.Id;
                 _rdvAModifier.DateHeure = dateHeure;
                 _rdvAModifier.Statut = "Confirmé";
 
                 await _rdvRepo.ModifierAsync(_rdvAModifier);
+
+                //liberer l'acien creneau
+                await _dispoRepo.LibererParCoiffeurEtDebutAsync(ancienCoiffeurId, ancienneDateHeure);
+
+                //Marquer le Nouveau creneau comme reserver
+                if (CreneauSelectionne != null && CreneauSelectionne.Id > 0)
+                {
+                    CreneauSelectionne.EstReserve = true;
+                    await _dispoRepo.MarquerCommeReserveAsync(CreneauSelectionne.Id);
+                }
 
                 MessageBox.Show("Rendez-vous modifié avec succès !");
             }
