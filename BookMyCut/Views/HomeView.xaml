@@ -38,80 +38,110 @@
             </StackPanel>
         </Viewbox>
 
-        <Border Grid.Column="1" Background="#4D000000" CornerRadius="20" Padding="20" VerticalAlignment="Stretch">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="1">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="15"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-                <TextBlock Text="Mes Prochains Rendez-vous" 
-                           FontSize="22" FontWeight="Bold" 
-                           Foreground="White" Margin="0,0,0,15"/>
+    <!-- MES PROCHAINS RDV (existant) -->
+    <Border Grid.Row="0" Background="#4D000000" CornerRadius="20" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
-                    <StackPanel>
-                        <ItemsControl ItemsSource="{Binding MesRendezVous}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#22FFFFFF" Margin="0,0,0,12" Padding="15" CornerRadius="10" BorderBrush="#11FFFFFF" BorderThickness="1">
-                                        <Grid>
-                                            <StackPanel Margin="0,0,145,0">
-                                                <TextBlock Text="{Binding Service.Nom}" FontWeight="Bold" Foreground="White" FontSize="16"/>
-                                                <TextBlock Text="{Binding DateHeure, StringFormat='{}{0:dd MMMM yyyy à HH:mm}'}" Foreground="#E0B03D" Margin="0,4"/>
-                                                <TextBlock Text="{Binding Coiffeur.NomComplet, StringFormat='Avec {0}'}" Foreground="#AAAAAA" FontSize="12" FontStyle="Italic"/>
-                                            </StackPanel>
+            <TextBlock Text="Mes Prochains Rendez-vous"
+                       FontSize="22" FontWeight="Bold"
+                       Foreground="White" Margin="0,0,0,15"/>
 
-                                            <StackPanel Orientation="Horizontal"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Center">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding MesRendezVous}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#22FFFFFF" Margin="0,0,0,12" Padding="15" CornerRadius="10" BorderBrush="#11FFFFFF" BorderThickness="1">
+                                    <Grid>
+                                        <StackPanel Margin="0,0,145,0">
+                                            <TextBlock Text="{Binding Service.Nom}" FontWeight="Bold" Foreground="White" FontSize="16"/>
+                                            <TextBlock Text="{Binding DateHeure, StringFormat='{}{0:dd MMMM yyyy à HH:mm}'}" Foreground="#E0B03D" Margin="0,4"/>
+                                            <TextBlock Text="{Binding Coiffeur.NomComplet, StringFormat='Avec {0}'}" Foreground="#AAAAAA" FontSize="12" FontStyle="Italic"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <TextBlock Text="✓" Foreground="#4CAF50" FontSize="26" Opacity="0.8" Margin="0,0,10,0"/>
+                                            <Button Content="Modifier" Width="75" Height="30"
+                                                    Background="#E86C1A" Foreground="White" FontWeight="Bold" FontSize="11" Cursor="Hand" Margin="0,0,8,0"
+                                                    Command="{Binding DataContext.ModifierRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                    CommandParameter="{Binding}"/>
+                                            <Button Content="Annuler" Width="75" Height="30"
+                                                    Background="#AA0000" Foreground="White" FontWeight="Bold" FontSize="11" Cursor="Hand"
+                                                    Command="{Binding DataContext.AnnulerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                    CommandParameter="{Binding}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="Vous n'avez aucun rendez-vous prévu. C'est le moment de changer de tête !"
+                               Foreground="#66FFFFFF" HorizontalAlignment="Center" Margin="0,40,0,0"
+                               FontStyle="Italic" FontSize="14" TextWrapping="Wrap" TextAlignment="Center"
+                               Visibility="{Binding HasNoAppointments, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 
-                                                <TextBlock Text="✓"
-                                                           Foreground="#4CAF50"
-                                                           FontSize="26"
-                                                           Opacity="0.8"
-                                                           Margin="0,0,10,0"/>
+    <!-- DISPONIBILITÉS EN TEMPS RÉEL -->
+    <Border Grid.Row="2" Background="#4D000000" CornerRadius="20" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                                                <Button Content="Modifier"
-                                                        Width="75"
-                                                        Height="30"
-                                                        Background="#E86C1A"
-                                                        Foreground="White"
-                                                        FontWeight="Bold"
-                                                        FontSize="11"
-                                                        Cursor="Hand"
-                                                        Margin="0,0,8,0"
-                                                        Command="{Binding DataContext.ModifierRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                        CommandParameter="{Binding}"/>
-                                                <Button Content="Annuler"
-                                                        Width="75"
-                                                        Height="30"
-                                                        Background="#AA0000"
-                                                        Foreground="White"
-                                                        FontWeight="Bold"
-                                                        FontSize="11"
-                                                        Cursor="Hand"
-                                                        Command="{Binding DataContext.AnnulerRendezVousCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                        CommandParameter="{Binding}"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+            <TextBlock Grid.Row="0" Text="Disponibilités en temps réel"
+                       FontSize="22" FontWeight="Bold"
+                       Foreground="White" Margin="0,0,0,12"/>
 
-                        <TextBlock Text="Vous n'avez aucun rendez-vous prévu. C'est le moment de changer de tête !" 
-                                   Foreground="#66FFFFFF" 
-                                   HorizontalAlignment="Center" 
-                                   Margin="0,40,0,0" 
-                                   FontStyle="Italic"
-                                   FontSize="14"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"
-                                   Visibility="{Binding HasNoAppointments, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
-        </Border>
+            <!-- Filtres -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
+                <DatePicker SelectedDate="{Binding DateFiltreDispos}"
+                            Width="150" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding CoiffeursListe}"
+                          SelectedItem="{Binding CoiffeurFiltre}"
+                          DisplayMemberPath="NomComplet"
+                          Width="160" Padding="8,5"
+                          VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Liste des créneaux -->
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding DisposTempsReel}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#22FFFFFF" Margin="0,0,0,6"
+                                    Padding="12,8" CornerRadius="8">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🕐" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Debut, StringFormat={}{0:HH:mm}}"
+                                               Foreground="#E0B03D" FontWeight="Bold"
+                                               FontSize="15" VerticalAlignment="Center"/>
+                                    <TextBlock Text=" → "
+                                               Foreground="#AAAAAA" FontSize="13" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Fin, StringFormat={}{0:HH:mm}}"
+                                               Foreground="White" FontSize="13" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Grid>
     </Grid>
 </UserControl>

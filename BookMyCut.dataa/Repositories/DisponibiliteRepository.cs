@@ -94,5 +94,17 @@ namespace BookMyCut.Data.Repositories
             dispo.EstReserve = true;
             await _db.SaveChangesAsync();
         }
+
+        public async Task LibererParCoiffeurEtDebutAsync(int coiffeurId, DateTime debut)
+        {
+            var dispo = await _db.Disponibilites
+                .FirstOrDefaultAsync(d => d.CoiffeurId == coiffeurId && d.Debut == debut);
+
+            if (dispo == null)
+                return;
+
+            dispo.EstReserve = false;
+            await _db.SaveChangesAsync();
+        }
     }
 }
