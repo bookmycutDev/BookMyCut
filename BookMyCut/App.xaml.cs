@@ -2,10 +2,12 @@ using System.Windows;
 using BookMyCut.Data.Data;
 using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
+using BookMyCut.Services;
 using BookMyCut.Utils;
 using BookMyCut.ViewModels;
 using BookMyCut.Views;
 using Microsoft.Extensions.DependencyInjection;
+using BookMyCut.Services;
 
 namespace BookMyCut
 {
@@ -31,6 +33,7 @@ namespace BookMyCut
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IRendezVousRepository, RendezVousRepository>();
             services.AddScoped<IDisponibiliteRepository, DisponibiliteRepository>();
+            services.AddSingleton<IDialogService, WpfDialogService>();
 
             // ViewModels
             services.AddTransient<ConnexionViewModel>();
