@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Fakes\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
