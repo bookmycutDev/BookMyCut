@@ -14,8 +14,8 @@ namespace BookMyCut
             InitializeComponent();
             MettreAJourNomUtilisateur();
             AfficherVueInitialeSelonRole();
+            GererVisibiliteOngletsSelonRole();
 
-            
         }
 
         public void MettreAJourNomUtilisateur()
@@ -64,21 +64,29 @@ namespace BookMyCut
             }
         }
 
+        private void GererVisibiliteOngletsSelonRole()
+        {
+            var utilisateur = SessionUtilisateur.Instance.UtilisateurConnecte;
+
+            if (utilisateur == null)
+                return;
+
+            if (utilisateur.Role == RoleUtilisateur.Coiffeur)
+            {
+                BtnServices.Visibility = Visibility.Collapsed;
+                BtnHistorique.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BtnServices.Visibility = Visibility.Visible;
+                BtnHistorique.Visibility = Visibility.Visible;
+            }
+        }
+
         private void AfficherServices()
         {
-            var bookingView = App.ServiceProvider.GetRequiredService<BookingView>();
-
-            if (bookingView.DataContext is BookingViewModel bookingVm)
-            {
-                bookingVm.SurReservationReussie = () =>
-                {
-                    bookingView.Close();
-                    AfficherAccueilPublic();
-                };
-            }
-
-            bookingView.Owner = this;
-            bookingView.ShowDialog();
+                var serviceView = App.ServiceProvider.GetRequiredService<ServiceView>();
+                MainContent.Content = serviceView;
         }
 
         private void AfficherModifierProfil()
@@ -100,6 +108,20 @@ namespace BookMyCut
 
             view.DataContext = vm;
             MainContent.Content = view;
+        }
+
+        private void AfficherHistorique()
+        {
+            var historiqueView = App.ServiceProvider.GetRequiredService<HistoriqueView>();
+            var historiqueVm = App.ServiceProvider.GetRequiredService<HistoriqueViewModel>();
+
+            historiqueView.DataContext = historiqueVm;
+            MainContent.Content = historiqueView;
+        }
+
+        private void BtnHistorique_Click(object sender, RoutedEventArgs e)
+        {
+            AfficherHistorique();
         }
 
         public void NaviguerVersBooking()

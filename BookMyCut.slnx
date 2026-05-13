@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="BookMyCut.dataa/BookMyCut.dataa.csproj" Id="228ed67e-b439-4683-935e-ac20224dff1b" />
+  <Project Path="BookMyCut.Tests/BookMyCut.Tests.csproj" Id="2172b8d7-46a4-40c3-9147-027292ee2156" />
   <Project Path="BookMyCut/BookMyCut.csproj" />
 </Solution>

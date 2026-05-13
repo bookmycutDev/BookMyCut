@@ -10,5 +10,6 @@ namespace BookMyCut.Data.Repositories
         Task SupprimerAsync(int disponibiliteId);
         Task<bool> ChevauchementExisteAsync(int coiffeurId, DateTime debut, DateTime fin);
         Task MarquerCommeReserveAsync(int disponibiliteId);
+        Task LibererParCoiffeurEtDebutAsync(int coiffeurId, DateTime debut);
     }
 }

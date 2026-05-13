@@ -85,9 +85,15 @@
                                 Style="{StaticResource NavButtonStyle}"
                                 Click="BtnNosCoiffeurs_Click"/>
 
-                        <Button Content="Services"
+                        <Button x:Name="BtnServices"
+                                Content="Services"
                                 Style="{StaticResource NavButtonStyle}"
                                 Click="BtnServices_Click"/>
+
+                        <Button x:Name="BtnHistorique"
+                                Content="Historique"
+                                Style="{StaticResource NavButtonStyle}"
+                                Click="BtnHistorique_Click"/>
 
                         <Button Content="Déconnexion"
                                 Style="{StaticResource NavButtonStyle}"

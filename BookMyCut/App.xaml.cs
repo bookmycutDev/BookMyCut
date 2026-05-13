@@ -1,12 +1,11 @@
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using BookMyCut.Data.Data;
+using BookMyCut.Data.Models;
 using BookMyCut.Data.Repositories;
+using BookMyCut.Utils;
 using BookMyCut.ViewModels;
 using BookMyCut.Views;
-using BookMyCut.Data.Models;
-using BookMyCut.Utils;
-using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BookMyCut
 {
